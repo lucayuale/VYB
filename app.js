@@ -62,7 +62,7 @@
         const art = node("div", "preview-art"); art.append(node("span"), node("i")); body.append(words, art);
         const mini = node("div", "preview-tiles"); for (let i=0;i<3;i++) mini.append(node("span"));
         preview.append(top,body,mini); visual.append(preview);
-        visual.append(node("span", "concept-label", text("concept")));
+        visual.append(node("span", "concept-label", text(project.published === true ? "illustrativePreview" : "concept")));
       }
       const details = node("div", "project-details");
       details.append(node("span", "project-category", project.type?.[lang] || ""), node("h3", "", projectName), node("p", "project-description", project.description?.[lang] || project.line?.[lang] || ""));
@@ -70,7 +70,7 @@
       const action = node(url ? "a" : "span", url ? "project-link" : "project-pending", url ? text("openProject") : text("linkPending"));
       if (url) { action.href = url; action.target = "_blank"; action.rel = "noopener noreferrer"; action.setAttribute("aria-label", `${text("openProject")}: ${projectName}`); }
       const meta = node("div", "project-availability");
-      meta.append(node("span", url ? "availability live" : "availability pending", text(url ? "publishedLabel" : "linkPending")),node("span", "mode-label",project.mode === "booking" ? "Booking" : text("plannedMode")));
+      meta.append(node("span", url ? "availability live" : "availability pending", text(url ? "publishedLabel" : "linkPending")),node("span", "mode-label",project.mode === "booking" ? "Booking" : (project.published === true ? text("demoSiteLabel") : text("plannedMode"))));
       details.prepend(meta);
       details.append(action); card.append(visual, details); projectGrid.append(card);
     });

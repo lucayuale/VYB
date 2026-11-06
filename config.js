@@ -144,12 +144,12 @@ window.VYB_CONFIG = {
         "en": "AUTO REPAIR"
       },
       "description": {
-        "es": "Línea de diseño en preparación para talleres y servicios automotores.",
-        "en": "A design direction in preparation for auto repair and automotive services."
+        "es": "Una web para presentar servicios automotores y facilitar las consultas de clientes.",
+        "en": "A website that showcases automotive services and helps customers get in touch."
       },
       "mode": null,
-      "published": false,
-      "url": null,
+      "published": true,
+      "url": "https://lucayuale.github.io/Mecanico-demo/",
       "screenshot": "",
       "screenshotAlt": {
         "es": "",
@@ -169,12 +169,12 @@ window.VYB_CONFIG = {
         "en": "WEDDINGS"
       },
       "description": {
-        "es": "Una futura propuesta para historias, celebraciones e invitaciones digitales. Funciones a definir.",
-        "en": "A future direction for stories, celebrations and digital invitations. Features to be defined."
+        "es": "Una propuesta visual para celebrar historias, presentar servicios y compartir detalles de bodas.",
+        "en": "An elegant presentation for wedding stories, services and celebration details."
       },
       "mode": null,
-      "published": false,
-      "url": null,
+      "published": true,
+      "url": "https://lucayuale.github.io/Boda-demo/",
       "screenshot": "",
       "screenshotAlt": {
         "es": "",
