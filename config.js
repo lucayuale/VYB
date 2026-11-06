@@ -180,10 +180,6 @@ window.VYB_CONFIG = {
       "screenshotAlt": {
         "es": "",
         "en": ""
-      },
-      "notice": {
-        "en": "This published link currently shows an auto repair demo. The wedding preview needs a publishing correction.",
-        "es": "Este enlace publicado muestra actualmente una demo de taller. La vista de bodas requiere corregir su publicación."
       }
     }
   ],
