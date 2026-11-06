@@ -2,14 +2,15 @@ window.VYB_CONFIG = {
   "defaultLanguage": "en",
   "seo": {
     "title": {
-      "es": "VYB — Diseño web con identidad",
-      "en": "VYB — Web design with identity"
+      "en": "VYB — Web Design Studio for Small Businesses",
+      "es": "VYB — Diseño web para pequeños negocios"
     },
     "description": {
-      "es": "Diseño y desarrollo web con identidad. Demos para negocios, Basic, Booking y Personalizada.",
-      "en": "Distinctive web design and development. Explore business demos, Basic, Booking and Custom websites."
+      "en": "Websites for small businesses, designed around your brand. Explore seven industry demos and compare Basic, Booking and Custom. Request a quote from VYB.",
+      "es": "Páginas web para pequeños negocios, adaptadas a tu marca. Explorá siete demos por rubro, compará Basic, Booking y Personalizada y solicitá presupuesto a VYB."
     },
-    "canonicalUrl": ""
+    "canonicalUrl": "https://vyb.vybstudydesign.workers.dev/",
+    "image": "assets/vyb-logo-email.png"
   },
   "contact": {
     "email": "vybstudydesign@gmail.com",
@@ -179,6 +180,10 @@ window.VYB_CONFIG = {
       "screenshotAlt": {
         "es": "",
         "en": ""
+      },
+      "notice": {
+        "en": "This published link currently shows an auto repair demo. The wedding preview needs a publishing correction.",
+        "es": "Este enlace publicado muestra actualmente una demo de taller. La vista de bodas requiere corregir su publicación."
       }
     }
   ],
@@ -235,5 +240,15 @@ window.VYB_CONFIG = {
         "en": "Weddings"
       }
     }
-  ]
+  ],
+  "analytics": {
+    "cloudflare": {
+      "enabled": false,
+      "token": ""
+    },
+    "plausible": {
+      "enabled": false,
+      "domain": ""
+    }
+  }
 };

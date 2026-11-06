@@ -1,0 +1,33 @@
+import assert from 'node:assert/strict';
+import vm from 'node:vm';
+import {readFile} from 'node:fs/promises';
+const base=new URL('../',import.meta.url);
+const sandbox={window:{},AbortController,setTimeout,clearTimeout};
+vm.runInNewContext(await readFile(new URL('form.js',base),'utf8'),sandbox);
+vm.runInNewContext(await readFile(new URL('config.js',base),'utf8'),sandbox);
+const {validate,getEndpoint,send}=sandbox.window.VYB_FORM_HELPERS;
+const current=sandbox.window.VYB_CONFIG;
+const valid={fullName:'Demo Visitor',email:'demo@example.test',business:'Example',service:'booking',description:'A sufficiently detailed fictional project enquiry.',language:'en'};
+assert.equal(Object.keys(validate(valid)).length,0);
+for(const [field,value]of [['fullName',''],['email','wrong'],['service','invented'],['description','short'],['business','x'.repeat(121)]])assert.ok(validate({...valid,[field]:value})[field]);
+let calls=0;
+const forbidden=async()=>{calls++;throw Error('Must not be called');};
+assert.equal((await send({contact:{form:{...current.contact.form,enabled:false}}},valid,{fetchImpl:forbidden})).status,'pending');assert.equal(calls,0);
+assert.equal(getEndpoint(current),'https://formspree.io/f/mjyyzaly');
+const ready={contact:{form:{provider:'formspree',formId:'testid123',enabled:true,recipientConfirmed:true}}};
+assert.equal(getEndpoint(ready),'https://formspree.io/f/testid123');
+for(const form of [{enabled:false},{recipientConfirmed:false},{formId:'../escape'},{formId:'https://evil.test'},{provider:'other'}])assert.equal(getEndpoint({contact:{form:{...ready.contact.form,...form}}}),'');
+assert.equal((await send(ready,{...valid,email:'bad'},{fetchImpl:forbidden})).status,'invalid');
+assert.equal((await send(ready,{...valid,_gotcha:'spam'},{fetchImpl:forbidden})).status,'error');assert.equal(calls,0);
+const accepted=await send(ready,valid,{fetchImpl:async(url,options)=>{
+ assert.equal(url,'https://formspree.io/f/testid123');assert.equal(options.method,'POST');
+ const data=JSON.parse(options.body);assert.equal(data.email,valid.email);assert.equal(data.service,'booking');assert.equal(data.description,valid.description);assert.equal(options.credentials,'omit');
+ return {ok:true,json:async()=>({ok:true})};
+}});assert.equal(accepted.status,'success');
+for(const response of [{ok:false,json:async()=>({errors:[]})},{ok:true,json:async()=>({ok:false})},{ok:true,json:async()=>{throw Error('bad JSON')}}])assert.equal((await send(ready,valid,{fetchImpl:async()=>response})).status,'error');
+assert.equal((await send(ready,valid,{fetchImpl:async()=>{throw Error('offline')}})).status,'network');
+assert.equal((await send(ready,valid,{timeoutMs:5,fetchImpl:(_,options)=>new Promise((_,reject)=>options.signal.addEventListener('abort',()=>reject(Error('timeout'))))})).status,'network');
+console.log('PASS: validation, pending blocks network, endpoint allow-list, honeypot, payload, success/error/offline/timeout handling (mock transport only, no real email).');
+
+assert.equal((await send(ready,valid,{fetchImpl:async()=>({status:429,ok:false,json:async()=>({})})})).status,'ratelimit');
+console.log('PASS: active configured endpoint preserved, pending case isolated, HTTP 429 handled.');

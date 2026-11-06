@@ -34,7 +34,7 @@
         signal:controller.signal, redirect:'error',credentials:'omit',referrerPolicy:'no-referrer'
       });
       const result = await response.json().catch(() => null);
-      return {status:response.ok && result?.ok === true ? 'success' : 'error'};
+      return {status:response.status === 429 ? 'ratelimit' : response.ok && result?.ok === true ? 'success' : 'error'};
     } catch { return {status:'network'}; }
     finally { clearTimeout(timer); }
   }
@@ -44,6 +44,7 @@
   const form = document.querySelector('#quote-form');
   const submit = document.querySelector('#form-submit');
   const status = document.querySelector('#form-status');
+  form.removeAttribute('inert');
   let errors = {}, message = '', busy = false;
   const t = key => window.VYB_COPY[document.documentElement.lang === 'es' ? 'es' : 'en'][key] || key;
   const controls = ['fullName','email','business','service','description'];
@@ -51,6 +52,7 @@
     const ready = Boolean(getEndpoint(config));
     document.querySelector('#form-notice').textContent = t(ready ? 'formReady' : 'formPending');
     document.querySelector('[data-i18n=contactBody]').textContent = t(ready ? 'formContactReady' : 'contactBody');
+    submit.disabled = busy;
     submit.textContent = t(busy ? 'formSending' : ready ? 'formSend' : 'formCheck');
     for (const name of controls) {
       document.querySelector('#error-'+name).textContent = errors[name] ? t(errors[name]) : '';
@@ -80,15 +82,17 @@
       message = 'formInvalid';render(); form.elements[Object.keys(errors)[0]].focus();return;
     }
     if (!getEndpoint(config)) {message='formValidPending';render();return;}
+    document.dispatchEvent(new CustomEvent('vyb:quote-submit',{detail:{service:values.service}}));
     busy=true;message='';render();
     [...form.elements].forEach(el=>{el.disabled=true;});
     const result = await send(config,values);
     busy=false; [...form.elements].forEach(el=>{el.disabled=false;});
-    message = {success:'formSuccess',pending:'formValidPending',network:'formNetwork',error:'formError'}[result.status] || 'formError';
-    if (result.status === 'success') {form.reset();errors={};}
+    message = {success:'formSuccess',pending:'formValidPending',network:'formNetwork',error:'formError',ratelimit:'formRateLimit'}[result.status] || 'formError';
+    if (result.status === 'success') {document.dispatchEvent(new CustomEvent('vyb:quote-success',{detail:{service:values.service}}));form.reset();errors={};}
     render(); status.focus({preventScroll:true});
   });
   const email = document.querySelector('#commercial-email');
+  email.hidden = !emailValid(config.contact?.email);
   if (emailValid(config.contact?.email)) {email.href='mailto:'+config.contact.email;email.textContent=config.contact.email;email.hidden=false;}
   const instagram=document.querySelector('#instagram-link');
   try {const url=new URL(config.social?.instagram);if(url.protocol==='https:' && ['instagram.com','www.instagram.com'].includes(url.hostname) && !url.username && !url.password && url.pathname!=='/'){instagram.href=url.href;instagram.hidden=false;}} catch {}

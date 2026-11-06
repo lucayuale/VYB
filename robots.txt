@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vyb.vybstudydesign.workers.dev/sitemap.xml

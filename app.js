@@ -52,7 +52,7 @@
       const visual = node("div", "project-visual");
       const imagePath = localImage(project.screenshot);
       if (imagePath) {
-        const img = node("img", "project-screenshot"); img.src = imagePath; img.alt = project.screenshotAlt?.[lang] || projectName; img.loading = "lazy"; img.width = 800; img.height = 600; visual.append(img); visual.append(node("span", "concept-label", text("screenshotLabel")));
+        const img = node("img", "project-screenshot"); img.src = imagePath; img.alt = project.screenshotAlt?.[lang] || projectName; img.loading = "lazy"; img.decoding = "async"; img.width = 800; img.height = 600; visual.append(img); visual.append(node("span", "concept-label", text("screenshotLabel")));
       } else {
         const preview = node("div", "site-preview"); preview.setAttribute("aria-hidden", "true");
         const top = node("div", "preview-top"); top.append(node("strong", "", projectName), node("span", "", "—  —  •"));
@@ -68,10 +68,11 @@
       details.append(node("span", "project-category", project.type?.[lang] || ""), node("h3", "", projectName), node("p", "project-description", project.description?.[lang] || project.line?.[lang] || ""));
       const url = project.published === true ? safeUrl(project.url) : "";
       const action = node(url ? "a" : "span", url ? "project-link" : "project-pending", url ? text("openProject") : text("linkPending"));
-      if (url) { action.href = url; action.target = "_blank"; action.rel = "noopener noreferrer"; action.setAttribute("aria-label", `${text("openProject")}: ${projectName}`); }
+      if (url) { action.dataset.demo = project.id; action.href = url; action.target = "_blank"; action.rel = "noopener noreferrer"; action.setAttribute("aria-label", `${text("openProject")}: ${projectName}`); }
       const meta = node("div", "project-availability");
       meta.append(node("span", url ? "availability live" : "availability pending", text(url ? "publishedLabel" : "linkPending")),node("span", "mode-label",project.mode === "booking" ? "Booking" : (project.published === true ? text("demoSiteLabel") : text("plannedMode"))));
       details.prepend(meta);
+      if(project.notice?.[lang])details.append(node("p","project-notice",project.notice[lang]));
       details.append(action); card.append(visual, details); projectGrid.append(card);
     });
   }
@@ -93,6 +94,7 @@
       const key = node.dataset.i18n;
       if (copy[selected][key] !== undefined) node.innerHTML = copy[selected][key];
     });
+    document.querySelectorAll("[data-i18n-alt]").forEach(el => { el.alt = copy[selected][el.dataset.i18nAlt] || "VYB"; });
     document.querySelectorAll("[data-i18n-aria]").forEach((node) => {
       const key = node.dataset.i18nAria;
       if (copy[selected][key]) node.setAttribute("aria-label", copy[selected][key]);
@@ -111,6 +113,7 @@
     document.querySelector('meta[property="og:description"]').content = description;
     syncMenu();
     document.dispatchEvent(new CustomEvent("vyb:language"));
+    document.querySelector('meta[property="og:locale"]')?.setAttribute("content",selected === "es" ? "es_AR" : "en_US");
   }
 
   function revealNew() {
@@ -128,6 +131,7 @@
   function syncMenu() {
     const open = menuButton.getAttribute("aria-expanded") === "true";
     nav.inert = mobileQuery.matches && !open;
+    document.body.classList.toggle("nav-open",mobileQuery.matches && open);
     menuButton.setAttribute("aria-label", text(open ? "menuClose" : "menuOpen"));
   }
   function closeMenu(restoreFocus = false) {
@@ -156,7 +160,7 @@
   document.querySelectorAll("[data-mode]").forEach(button => button.addEventListener("click", () => { selectedMode = button.dataset.mode; updateMode(); }));
   const canonical = safeUrl(config.seo?.canonicalUrl);
   if (canonical && canonical.startsWith("https://")) {
-    const link = document.createElement("link"); link.rel="canonical"; link.href=canonical; document.head.append(link);
+    let link = document.querySelector('link[rel="canonical"]'); if(!link){link=document.createElement("link");link.rel="canonical";document.head.append(link);} link.href=canonical;
   }
   const navSections = [...nav.querySelectorAll('a[href^="#"]')].map(link => ({link, section:document.querySelector(link.getAttribute("href"))}));
   let ticking = false;
@@ -171,7 +175,16 @@
   document.querySelector("#year").textContent = new Date().getFullYear();
 
   let initial = config.defaultLanguage === "en" ? "en" : "es";
-  try { initial = localStorage.getItem("vyb-language") || initial; } catch { /* keep Spanish default */ }
+  try { const stored = localStorage.getItem("vyb-language"); if (["en","es"].includes(stored)) initial = stored; } catch { /* keep configured default */ }
   setLanguage(initial);
   revealNew();
+  const mobileQuote = document.querySelector('.mobile-quote');
+  if ('IntersectionObserver' in window) {
+    const visibility = new Map();
+    const quoteObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => visibility.set(entry.target.id,entry.isIntersecting));
+      mobileQuote.hidden = Boolean(visibility.get('inicio') || visibility.get('contacto'));
+    });
+    ['inicio','contacto'].forEach(id => quoteObserver.observe(document.getElementById(id)));
+  }
 })();
