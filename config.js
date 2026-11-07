@@ -6,8 +6,8 @@ window.VYB_CONFIG = {
       "es": "VYB — Diseño web para pequeños negocios"
     },
     "description": {
-      "en": "Websites for small businesses, designed around your brand. Explore seven industry demos and compare Basic, Booking and Custom. Request a quote from VYB.",
-      "es": "Páginas web para pequeños negocios, adaptadas a tu marca. Explorá siete demos por rubro, compará Basic, Booking y Personalizada y solicitá presupuesto a VYB."
+      "en": "Websites for small businesses, designed around your brand. Explore ten industry demos and compare Basic, Booking and Custom. Request a quote from VYB.",
+      "es": "Páginas web para pequeños negocios, adaptadas a tu marca. Explorá diez demos por rubro, compará Basic, Booking y Personalizada y solicitá presupuesto a VYB."
     },
     "canonicalUrl": "https://vyb.vybstudydesign.workers.dev/",
     "image": "assets/vyb-logo-email.png"
@@ -181,6 +181,72 @@ window.VYB_CONFIG = {
         "es": "",
         "en": ""
       }
+    },
+    {
+      "id": "tattoo",
+      "name": "INKHAUS",
+      "category": "tattoo",
+      "theme": "tattoo",
+      "type": {
+        "es": "TATUAJES",
+        "en": "TATTOO STUDIOS"
+      },
+      "description": {
+        "es": "Un portfolio con identidad artística para presentar estilos, artistas y consultas.",
+        "en": "An expressive portfolio for tattoo styles, artists and consultation enquiries."
+      },
+      "url": "https://lucayuale.github.io/Tatto-demo/",
+      "screenshot": "",
+      "screenshotAlt": {
+        "es": "",
+        "en": ""
+      },
+      "published": true,
+      "mode": "booking"
+    },
+    {
+      "id": "yoga",
+      "name": "ALUNA",
+      "category": "yoga",
+      "theme": "yoga",
+      "type": {
+        "es": "YOGA Y PILATES",
+        "en": "YOGA & PILATES"
+      },
+      "description": {
+        "es": "Una experiencia boutique con disciplinas, horarios filtrables y presentación del estudio.",
+        "en": "A boutique experience with disciplines, a filterable timetable and studio details."
+      },
+      "url": "https://lucayuale.github.io/Joga-demo/",
+      "screenshot": "",
+      "screenshotAlt": {
+        "es": "",
+        "en": ""
+      },
+      "published": true,
+      "mode": "booking"
+    },
+    {
+      "id": "pet-grooming",
+      "name": "PAWS & CO.",
+      "category": "pet-grooming",
+      "theme": "pet-grooming",
+      "type": {
+        "es": "PELUQUERÍA CANINA",
+        "en": "PET GROOMING"
+      },
+      "description": {
+        "es": "Servicios por tamaño, galería y una presentación cuidada para estudios de grooming.",
+        "en": "Size-based services, a gallery and a considered presentation for grooming studios."
+      },
+      "url": "https://lucayuale.github.io/Peluqueria-canina-demo/",
+      "screenshot": "",
+      "screenshotAlt": {
+        "es": "",
+        "en": ""
+      },
+      "published": true,
+      "mode": "booking"
     }
   ],
   "social": {
@@ -234,6 +300,27 @@ window.VYB_CONFIG = {
       "label": {
         "es": "Bodas",
         "en": "Weddings"
+      }
+    },
+    {
+      "id": "tattoo",
+      "label": {
+        "es": "Estudios de tatuajes",
+        "en": "Tattoo studios"
+      }
+    },
+    {
+      "id": "yoga",
+      "label": {
+        "es": "Yoga y pilates",
+        "en": "Yoga & Pilates"
+      }
+    },
+    {
+      "id": "pet-grooming",
+      "label": {
+        "es": "Peluquerías caninas",
+        "en": "Pet grooming"
       }
     }
   ],

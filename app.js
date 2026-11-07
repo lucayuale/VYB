@@ -43,11 +43,11 @@
     projectGrid.querySelectorAll(".reveal").forEach(el => observer?.unobserve(el));
     projectGrid.replaceChildren();
     const projects = (Array.isArray(config.projects) ? config.projects : []).filter(project => activeFilter === "all" || project.category === activeFilter);
-    document.querySelector("#catalog-count").textContent = `${projects.length} ${text("designCount")}`;
+    document.querySelector("#catalog-count").textContent = `${projects.length} ${text(projects.length === 1 ? "designCountOne" : "designCount")}`;
     if (!projects.length) projectGrid.append(node("p", "catalog-empty", text("empty")));
     projects.forEach((project, index) => {
       const projectName = typeof project.name === "string" ? project.name : (project.name?.[lang] || project.name?.es || "VYB");
-      const card = node("article", `project-card theme-${/^(obsidian|cosmetica|gym|nails|restaurant|mechanic|wedding)$/.test(project.theme) ? project.theme : "default"}`);
+      const card = node("article", `project-card theme-${/^(obsidian|cosmetica|gym|nails|restaurant|mechanic|wedding|tattoo|yoga|pet-grooming)$/.test(project.theme) ? project.theme : "default"}`);
       card.style.setProperty("--card-order", String(index));
       const visual = node("div", "project-visual");
       const imagePath = localImage(project.screenshot);

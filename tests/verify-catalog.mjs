@@ -1,0 +1,5 @@
+import assert from 'node:assert/strict';import {readFile,access} from 'node:fs/promises';import vm from 'node:vm';
+const root=new URL('../',import.meta.url),ctx={window:{}};vm.runInNewContext(await readFile(new URL('config.js',root),'utf8'),ctx);const c=ctx.window.VYB_CONFIG;
+const additions=[['tattoo','Tatto-demo','preview-tattoo.webp'],['yoga','Joga-demo','preview-yoga.webp'],['pet-grooming','Peluqueria-canina-demo','preview-pet-grooming.webp']];
+for(const[id,slug,image]of additions){const p=c.projects.find(p=>p.id===id);assert.equal(p.url,'https://lucayuale.github.io/'+slug+'/');assert.equal(p.category,id);assert.equal(p.published,true);assert.ok(c.categories.some(x=>x.id===id&&x.label.en&&x.label.es));await access(new URL('assets/'+image,root));const css=await readFile(new URL('styles.css',root),'utf8');assert.ok(css.includes('assets/'+image));}
+assert.equal(c.projects.length,10);assert.equal(new Set(c.categories.map(x=>x.id)).size,10);console.log('PASS: three new exact URLs, bilingual filter categories and local illustrative preview resources.');

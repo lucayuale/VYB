@@ -10,10 +10,10 @@ for(const f of ['config.js','content.js'])vm.runInNewContext(await read(f),ctx);
 const c=ctx.window.VYB_CONFIG,t=ctx.window.VYB_COPY,html=await read('index.html'),app=await read('app.js');
 assert.equal(c.defaultLanguage,'en');assert.match(html,/<html lang="en"/);
 assert.deepEqual(Object.keys(t.es).sort(),Object.keys(t.en).sort());
-const expected=['Bareberia-demo','Cosmetica-demo','Gym-demo','Nails-demo','Restaurante-demo','Mecanico-demo','Boda-demo'];
-assert.equal(c.projects.length,7);assert.equal(c.categories.length,7);
-assert.equal(new Set(c.projects.map(p=>p.id)).size,7);
-for(let i=0;i<7;i++){
+const expected=['Bareberia-demo','Cosmetica-demo','Gym-demo','Nails-demo','Restaurante-demo','Mecanico-demo','Boda-demo','Tatto-demo','Joga-demo','Peluqueria-canina-demo'];
+assert.equal(c.projects.length,10);assert.equal(c.categories.length,10);
+assert.equal(new Set(c.projects.map(p=>p.id)).size,10);
+for(let i=0;i<10;i++){
  const p=c.projects[i];assert.equal(p.url,'https://lucayuale.github.io/'+expected[i]+'/');assert.equal(p.published,true);
  for(const lang of ['en','es'])assert.ok(p.description[lang] && p.type[lang]);
  if(p.screenshot)await access(path.join(root,p.screenshot));
@@ -36,4 +36,4 @@ assert.match(html,/og:image/);assert.match(html,/og:locale/);assert.match(html,/
 assert.match(html,/<form inert method="post"/);assert.ok(!/(href="(?:tel:|https:\/\/wa\.me))/.test(html));
 assert.match(await read('styles.css'),/prefers-reduced-motion/);
 assert.equal(t.en.emailLabel,'Email address *');assert.notEqual(t.en.emailLabel,t.en.directEmailLabel);
-console.log('PASS: root resources/anchors, seven exact demos, bilingual keys, EN default, quote links, active contact preserved, analytics off, SEO and no-JS guard.');
+console.log('PASS: root resources/anchors, ten exact demos, bilingual keys, EN default, quote links, active contact preserved, analytics off, SEO and no-JS guard.');
