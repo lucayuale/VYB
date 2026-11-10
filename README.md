@@ -1,5 +1,7 @@
 # VYB — Web oficial optimizada, 6 de noviembre de 2026
 
+**Actualización del 10/11/2026:** se incorporó una sección bilingüe para contratar el servicio publicado de VYB en Fiverr y un enlace en el footer. Consultar `CAMBIOS_FIVERR_GITHUB.md` para subir esta versión. Se preservaron el catálogo, los servicios y el formulario.
+
 Esta carpeta es la web oficial estática actual, no una restauración de la v4 histórica. Conserva los siete enlaces, identidad oscura/dorada, logo, animaciones, planes Basic/Booking/Custom, formulario activo configurado e inglés inicial con preferencia EN/ES guardada. No se añadieron precios, testimonios, clientes ni garantías.
 
 ## Abrir en Windows

@@ -34,6 +34,11 @@ assert.equal(c.contact.email,'vybstudydesign@gmail.com');assert.equal(c.social.i
 assert.ok(!c.analytics.cloudflare.enabled&&!c.analytics.plausible.enabled);
 assert.match(html,/og:image/);assert.match(html,/og:locale/);assert.match(html,/twitter:card/);assert.match(html,/<link rel="canonical"/);
 assert.match(html,/<form inert method="post"/);assert.ok(!/(href="(?:tel:|https:\/\/wa\.me))/.test(html));
+assert.equal((html.match(/href="https:\/\/www\.fiverr\.com\/s\/odWEb28"/g)||[]).length,2,'Fiverr section and footer should link to the official Gig');
+assert.match(html,/class="fiverr-cta section-pad"/);
+assert.match(html,/class="footer-fiverr"/);
+assert.match(html,/href="https:\/\/www\.fiverr\.com\/s\/odWEb28" target="_blank" rel="noopener noreferrer"/);
+for(const lang of ['en','es'])for(const key of ['fiverrKicker','fiverrTitle','fiverrDescription','fiverrButton','fiverrNote','fiverrAria'])assert.ok(t[lang][key],`${lang} missing ${key}`);
 assert.match(await read('styles.css'),/prefers-reduced-motion/);
 assert.equal(t.en.emailLabel,'Email address *');assert.notEqual(t.en.emailLabel,t.en.directEmailLabel);
-console.log('PASS: root resources/anchors, ten exact demos, bilingual keys, EN default, quote links, active contact preserved, analytics off, SEO and no-JS guard.');
+console.log('PASS: root resources/anchors, ten exact demos, bilingual keys, EN default, quote links, Fiverr links, active contact preserved, analytics off, SEO and no-JS guard.');

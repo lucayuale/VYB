@@ -2219,5 +2219,46 @@ button:disabled{cursor:wait;opacity:.6}
 
 .project-notice{border-left:2px solid var(--gold);padding-left:12px;color:var(--gold-soft);font-size:12px;line-height:1.7;margin:14px 0}
 
+/* VYB x Fiverr: a second purchase channel in the existing dark/gold identity. */
+.fiverr-cta{
+  display:grid;
+  grid-template-columns:minmax(0,1.4fr) minmax(260px,.6fr);
+  align-items:center;
+  gap:clamp(34px,6vw,95px);
+  background:radial-gradient(ellipse at 90% 15%,rgba(199,165,104,.10),transparent 48%),#1b1a18;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  overflow:hidden;
+}
+.fiverr-cta-eyebrow{display:flex;align-items:center;gap:12px;margin:0 0 25px;color:var(--gold-soft);font-size:10px;letter-spacing:.19em;font-weight:700}
+.fiverr-cta-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.fiverr-cta h2{max-width:780px;margin:0;font-family:var(--display);font-size:clamp(40px,5.2vw,77px);font-weight:500;letter-spacing:-.068em;line-height:1.08}
+.fiverr-cta h2 em{color:var(--gold);font-weight:400}
+.fiverr-cta-description{max-width:580px;margin:25px 0 30px;color:#c8c0b4;font-size:14px;line-height:1.85}
+.fiverr-cta-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.fiverr-cta-actions .button{min-height:54px;justify-content:space-between;gap:25px}
+.fiverr-cta-note{max-width:260px;color:#aca397;font-size:11px;line-height:1.65}
+.fiverr-cta-art{display:flex;flex-direction:column;justify-content:space-between;min-height:310px;padding:24px 25px;border:1px solid rgba(199,165,104,.36);background:linear-gradient(145deg,rgba(199,165,104,.12),rgba(199,165,104,.015) 54%,rgba(0,0,0,.15));position:relative;overflow:hidden}
+.fiverr-cta-art:after{content:"";position:absolute;inset:52px 24px 51px;border:1px solid rgba(199,165,104,.13);pointer-events:none}
+.fiverr-cta-art-tag,.fiverr-cta-art-bottom{font-size:10px;color:#d1b789;letter-spacing:.19em;z-index:1}
+.fiverr-cta-art strong{align-self:center;font-family:var(--display);font-size:clamp(68px,9vw,132px);line-height:1;letter-spacing:-.10em;color:var(--paper);font-weight:500;z-index:1}
+.fiverr-cta-art strong span{color:var(--gold)}
+.footer-fiverr{font-size:11px;font-weight:700;color:var(--gold-soft);letter-spacing:.04em;white-space:nowrap}
+.footer-fiverr:hover,.footer-fiverr:focus-visible{color:var(--paper);text-decoration:underline;text-underline-offset:4px}
+@media(max-width:950px){
+  .fiverr-cta{grid-template-columns:minmax(0,1fr) minmax(185px,.48fr);gap:25px}
+  .fiverr-cta-art{min-height:240px;padding:19px}
+}
+@media(max-width:700px){
+  .fiverr-cta{grid-template-columns:minmax(0,1fr);gap:30px;padding-top:76px;padding-bottom:76px}
+  .fiverr-cta h2{font-size:clamp(37px,10vw,58px)}
+  .fiverr-cta-description{font-size:13px}
+  .fiverr-cta-actions{align-items:flex-start;flex-direction:column}
+  .fiverr-cta-actions .button{width:100%;justify-content:space-between}
+  .fiverr-cta-art{min-height:175px}
+  .fiverr-cta-art strong{font-size:90px}
+  .footer-fiverr{min-height:44px;display:inline-flex;align-items:center}
+}
+
 /* VYB catalog: additional illustrative previews, shared card layout. */
 .theme-tattoo .project-visual{background:#282522}.theme-tattoo .site-preview{background:#171817;color:#eee9df}.theme-tattoo .preview-words b{font-family:Arial,sans-serif;font-weight:800;letter-spacing:-.055em}.theme-tattoo .preview-art{background:url("assets/preview-tattoo.webp") center/cover}.theme-yoga .project-visual{background:#d0cbbd}.theme-yoga .site-preview{background:#f8f6f0;color:#354236}.theme-yoga .preview-words b{font-style:italic;letter-spacing:-.03em}.theme-yoga .preview-art{border-radius:45% 45% 0 0;background:url("assets/preview-yoga.webp") 70% center/cover}.theme-pet-grooming .project-visual{background:#9ba992}.theme-pet-grooming .site-preview{background:#f7f4ed;color:#283b31}.theme-pet-grooming .preview-words b{font-family:Arial,sans-serif;font-weight:700;font-size:clamp(16px,2.5vw,31px);letter-spacing:-.04em}.theme-pet-grooming .preview-art{border-radius:25px 65px 8px 8px;background:url("assets/preview-pet-grooming.webp") center 35%/cover}.theme-tattoo .preview-art>*,.theme-yoga .preview-art>*,.theme-pet-grooming .preview-art>*{display:none}
