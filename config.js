@@ -250,7 +250,7 @@ window.VYB_CONFIG = {
     }
   ],
   "social": {
-    "instagram": ""
+    "instagram": "https://www.instagram.com/vyb.webdesign/"
   },
   "categories": [
     {

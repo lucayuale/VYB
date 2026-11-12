@@ -1,7 +1,5 @@
 # VYB — Web oficial optimizada, 6 de noviembre de 2026
 
-**Actualización del 10/11/2026:** se incorporó una sección bilingüe para contratar el servicio publicado de VYB en Fiverr y un enlace en el footer. Consultar `CAMBIOS_FIVERR_GITHUB.md` para subir esta versión. Se preservaron el catálogo, los servicios y el formulario.
-
 Esta carpeta es la web oficial estática actual, no una restauración de la v4 histórica. Conserva los siete enlaces, identidad oscura/dorada, logo, animaciones, planes Basic/Booking/Custom, formulario activo configurado e inglés inicial con preferencia EN/ES guardada. No se añadieron precios, testimonios, clientes ni garantías.
 
 ## Abrir en Windows
@@ -33,7 +31,7 @@ Node.js 20+ recomendado. Sin dependencias adicionales. `prepare.mjs` es idempote
 
 ## Configuración
 
-- `config.js`: SEO/canonical, correo y Formspree, siete demos, categorías, Instagram vacío, estadísticas opcionales.
+- `config.js`: SEO/canonical, correo y Formspree, siete demos, categorías, Instagram oficial @vyb.webdesign, estadísticas opcionales.
 - `content.js`: textos y traducciones actuales; `app.js`: navegación, catálogo, comparación, idioma y textos heredados.
 - `form.js`: validación y envío configurable, errores, timeout, estado pendiente y selección desde planes.
 - `analytics.js`: integración opcional y eventos con propiedades limitadas, desactivados por defecto.
@@ -62,3 +60,9 @@ La configuración de cada proyecto sigue centralizada. Para modificar una tarjet
 ## Publicar manualmente
 
 Ver `PUBLICAR_GITHUB.md`. El ZIP oficial contiene archivos de raíz para el repositorio que alimenta al Worker actual; su nombre y configuración de CI no estaban incluidos. Conservar los archivos de despliegue existentes (`wrangler`, workflows, bindings) y no sustituirlos por los de la v4 histórica. El paquete no modifica repositorios ni despliega por sí solo.
+
+## Instagram oficial (actualización 12/11/2026)
+
+La cuenta pública `https://www.instagram.com/vyb.webdesign/` se muestra en Contacto y en el pie de página. La configuración se encuentra en `config.js > social.instagram`, y el pie sigue validando que el dominio pertenezca a Instagram. Se agregó `sameAs` (Organization) para que los buscadores asocien la web y el perfil comercial. No se modificaron formularios, correos, enlaces a las 10 demos ni los controles de privacidad.
+
+**Pendiente de publicación:** este ZIP actualiza archivos locales, no cambia automáticamente el Worker ni GitHub. Publicá los archivos en el repositorio/hosting que ya usás para la web oficial. Cuando compres un dominio, ajustá `seo.canonicalUrl`, metaetiquetas y el `url` del JSON-LD al nuevo dominio, sin cambiar las demos.
