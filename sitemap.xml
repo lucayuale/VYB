@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://vyb.vybstudydesign.workers.dev/</loc></url></urlset>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://vyb.vybstudydesign.workers.dev/</loc></url>
+  <url><loc>https://vyb.vybstudydesign.workers.dev/es/nosotros/</loc></url>
+  <url><loc>https://vyb.vybstudydesign.workers.dev/en/about/</loc></url>
+  <url><loc>https://vyb.vybstudydesign.workers.dev/es/diseno-web/</loc></url>
+  <url><loc>https://vyb.vybstudydesign.workers.dev/en/web-design/</loc></url>
+  <url><loc>https://vyb.vybstudydesign.workers.dev/es/reservas-online/</loc></url>
+  <url><loc>https://vyb.vybstudydesign.workers.dev/en/online-booking/</loc></url>
+  <url><loc>https://vyb.vybstudydesign.workers.dev/es/desarrollo-web-personalizado/</loc></url>
+  <url><loc>https://vyb.vybstudydesign.workers.dev/en/custom-web-development/</loc></url>
+</urlset>

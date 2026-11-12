@@ -270,3 +270,59 @@ window.VYB_COPY = {
     "directEmailLabel": "Prefer to email us directly?"
   }
 };
+
+// Transparent team presentation, service landing pages and commercial FAQ.
+Object.assign(window.VYB_COPY.es, {
+  "navAbout": "Nosotros",
+  "aboutKicker": "LAS PERSONAS DETRÁS DE VYB",
+  "aboutTitle": "Dos miradas.<br><em>Un mismo estudio.</em>",
+  "aboutDescription": "Somos Luca Yuale y Valentín Bertuccelli, fundadores de VYB — Web Design Studio. Estudiamos Ingeniería en Sistemas de Información en la Universidad Tecnológica Nacional (UTN) y combinamos una mirada técnica con el cuidado por el diseño.",
+  "aboutMission": "Trabajamos desde Rosario, Argentina, para negocios locales e internacionales. Primero escuchamos, después definimos un alcance realista y desarrollamos una web que represente a cada marca, sin soluciones genéricas.",
+  "aboutRole": "Cofundador · Diseño y desarrollo web",
+  "aboutEducation": "Estudiantes de Ingeniería en Sistemas · UTN · Rosario, Argentina",
+  "aboutMore": "Conocé VYB",
+  "aboutContact": "Hablemos de tu idea",
+  "servicesKicker": "CONOCÉ NUESTROS SERVICIOS",
+  "servicesTitle": "Un negocio.<br><em>Muchas posibilidades.</em>",
+  "servicesIntro": "Elegí el tipo de web que mejor acompañe a tu negocio. Conocé qué incluye cada modalidad, explorá ejemplos y pedí una propuesta a medida.",
+  "service1Title": "Páginas web para negocios",
+  "service1Body": "Mostrá tu marca, tus servicios y tus datos de contacto en una web adaptable a celulares.",
+  "service2Title": "Webs con turnos online",
+  "service2Body": "Presentá tus servicios y conectá a tus clientes con una plataforma de turnos externa compatible.",
+  "service3Title": "Desarrollo web personalizado",
+  "service3Body": "Planificá funciones y contenidos a partir de los objetivos concretos de tu negocio.",
+  "serviceMore": "Ver servicio",
+  "qVybWho": "¿Quiénes están detrás de VYB?",
+  "aVybWho": "VYB fue fundado por Luca Yuale y Valentín Bertuccelli. Ambos somos estudiantes de Ingeniería en Sistemas de Información en la UTN, en Rosario, Argentina.",
+  "qVybDemos": "¿Las páginas del portfolio son trabajos de clientes reales?",
+  "aVybDemos": "Las diez páginas que mostramos son demostraciones creadas por VYB, no trabajos contratados por clientes. Sirven para mostrar estilos y funcionalidades que podemos conversar para tu negocio.",
+  "qVybPricing": "¿Cómo funcionan los pagos y el mantenimiento?",
+  "aVybPricing": "Nuestra modalidad habitual es 50% de anticipo y 50% antes de publicar. El hosting y el soporte mensual se detallan por separado en el presupuesto según el alcance del proyecto."
+});
+Object.assign(window.VYB_COPY.en, {
+  "navAbout": "About us",
+  "aboutKicker": "PEOPLE BEHIND THE WORK",
+  "aboutTitle": "Two perspectives.<br><em>One studio.</em>",
+  "aboutDescription": "We are Luca Yuale and Valentín Bertuccelli, founders of VYB — Web Design Studio. We study Information Systems Engineering at Universidad Tecnológica Nacional (UTN), combining technical thinking with a genuine focus on visual design.",
+  "aboutMission": "We work from Rosario, Argentina, with local and international businesses. We listen first, agree on a realistic scope and develop a website that reflects the business instead of applying a generic template.",
+  "aboutRole": "Co-founder · Web design and development",
+  "aboutEducation": "Information Systems Engineering students · UTN · Rosario, Argentina",
+  "aboutMore": "Meet VYB",
+  "aboutContact": "Let’s talk about your idea",
+  "servicesKicker": "EXPLORE OUR SERVICES",
+  "servicesTitle": "One business.<br><em>Many possibilities.</em>",
+  "servicesIntro": "Choose the type of website that suits your current needs. Learn what each service includes, explore examples and request a tailored quote.",
+  "service1Title": "Business websites",
+  "service1Body": "Showcase your brand, services and contact details with a responsive website.",
+  "service2Title": "Online booking websites",
+  "service2Body": "Introduce services and connect visitors to a compatible external appointment platform.",
+  "service3Title": "Custom web development",
+  "service3Body": "Plan a site with functionality defined around your business goals and requirements.",
+  "serviceMore": "Explore service",
+  "qVybWho": "Who is behind VYB?",
+  "aVybWho": "VYB was founded by Luca Yuale and Valentín Bertuccelli, Information Systems Engineering students at UTN in Rosario, Argentina.",
+  "qVybDemos": "Are the portfolio websites real client projects?",
+  "aVybDemos": "The ten websites shown are demonstrations created by VYB, not commissioned client work. They show visual directions and features we can discuss for your business.",
+  "qVybPricing": "How do payment and maintenance work?",
+  "aVybPricing": "Our standard approach is a 50% deposit and the remaining 50% before publication. Hosting and ongoing support are discussed separately in the written quote, depending on the project."
+});

@@ -99,6 +99,9 @@
       const key = node.dataset.i18nAria;
       if (copy[selected][key]) node.setAttribute("aria-label", copy[selected][key]);
     });
+    document.querySelectorAll("[data-local-href-en][data-local-href-es]").forEach(link => {
+      link.setAttribute("href", link.dataset[selected === "es" ? "localHrefEs" : "localHrefEn"]);
+    });
     langButton.querySelector(".lang-current").textContent = selected.toUpperCase();
     langButton.querySelector(".lang-next").textContent = selected === "es" ? "EN" : "ES";
     langButton.setAttribute("aria-label", selected === "es" ? "Cambiar idioma a inglés" : "Switch language to Spanish");

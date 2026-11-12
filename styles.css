@@ -2230,3 +2230,39 @@ button:disabled{cursor:wait;opacity:.6}
 .instagram-mark{width:25px;height:25px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--gold);border-radius:7px;color:var(--gold-soft);font-size:23px;line-height:1}
 #instagram-link{min-height:44px;display:inline-flex;align-items:center;gap:6px;padding:9px 0;white-space:nowrap}
 #instagram-link:hover,#instagram-link:focus-visible{text-decoration:underline;text-underline-offset:5px;color:var(--paper)}
+
+
+/* VYB 2026 / About us, service discovery and trusted founders. */
+.about-vyb{display:grid;grid-template-columns:minmax(0,1.28fr) minmax(300px,.75fr);gap:clamp(30px,7vw,108px);background:#211f1c;align-items:start;border-top:1px solid var(--line)}
+.about-vyb .section-kicker,.service-paths .section-kicker{color:var(--gold-soft);margin-bottom:26px;font-size:11px;letter-spacing:.19em}
+.about-vyb h2,.service-paths h2{font-family:var(--display);font-size:clamp(44px,6.2vw,80px);line-height:1.04;letter-spacing:-.075em;margin:0 0 32px;font-weight:500}
+.about-vyb h2 em,.service-paths h2 em{color:var(--gold);font-weight:400}
+.about-vyb-intro>p{color:#c6bfb5;font-size:14px;line-height:1.95;max-width:670px;margin:0 0 15px}
+.about-vyb-links{display:flex;gap:28px;flex-wrap:wrap;margin-top:34px}
+.about-vyb-links .text-link{font-size:12px}
+.about-vyb-team{border:1px solid rgba(199,165,104,.27);padding:32px 34px 24px;position:relative;background:radial-gradient(circle at 100% 0%,rgba(199,165,104,.08),transparent 57%),#1b1a18}
+.about-vyb-monogram{font-family:var(--display);font-size:clamp(76px,10vw,154px);font-weight:700;line-height:1;letter-spacing:-.115em;margin:8px 0 44px;color:#f4eee5;white-space:nowrap}
+.about-vyb-monogram span{color:var(--gold);font-weight:300}
+.founder-row{display:grid;grid-template-columns:48px minmax(0,1fr);gap:12px;border-top:1px solid var(--line);padding:18px 0;align-items:start}
+.founder-row>span{font-size:11px;color:var(--gold);letter-spacing:.15em}
+.founder-row strong{display:block;color:var(--paper);font-family:var(--display);font-size:23px;line-height:1.25;letter-spacing:-.03em;font-weight:500}
+.founder-row small{display:block;color:var(--muted);font-size:11px;letter-spacing:.02em;margin-top:5px;line-height:1.6}
+.about-education{border-top:1px solid var(--line);padding-top:20px;margin:8px 0 0;color:var(--gold-soft);font-size:11px;line-height:1.7}
+.service-paths{background:#eee8df;color:#211f1c}
+.service-paths .section-kicker{color:#8a7043}
+.service-paths-head{display:flex;align-items:end;justify-content:space-between;gap:32px;margin-bottom:42px}
+.service-paths-head h2{margin:0}
+.service-paths-head p{max-width:350px;margin:0 0 6px;color:#686056;font-size:13px;line-height:1.9}
+.service-paths-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.service-path{display:flex;flex-direction:column;min-height:310px;border:1px solid #c9c1b6;padding:30px 25px;background:#f5f1eb;transition:transform .25s ease,border-color .25s ease}
+.service-path:hover{transform:translateY(-4px);border-color:#917246}
+.service-path-no{color:#987f54;letter-spacing:.15em;font-size:10px;font-weight:700}
+.service-path h3{font-family:var(--display);font-size:clamp(23px,2.5vw,35px);line-height:1.15;letter-spacing:-.055em;margin:31px 0 12px;font-weight:500}
+.service-path p{color:#6b645a;font-size:13px;line-height:1.8;margin:0 0 24px}
+.service-path>a{margin-top:auto;border-top:1px solid #cfc6b9;padding-top:16px;display:flex;justify-content:space-between;align-items:center;color:#32271a;font-size:12px;font-weight:700}
+.service-path>a:hover,.service-path>a:focus-visible{color:#8e6a33;text-decoration:underline;text-underline-offset:4px}
+.footer-about-link{font-size:11px;color:#b2aca2;white-space:nowrap}
+.footer-about-link:hover{color:var(--gold-soft)}
+@media(max-width:1050px){.main-nav{gap:22px;margin-right:25px}.about-vyb{gap:35px}.about-vyb-team{padding:25px}.service-path{padding:25px 20px}}
+@media(max-width:800px){.about-vyb{grid-template-columns:1fr}.about-vyb-team{max-width:640px}.service-paths-head{display:block}.service-paths-head p{margin-top:20px;max-width:610px}.service-paths-grid{grid-template-columns:1fr}.service-path{min-height:230px}.service-path h3{margin-top:20px}.footer-about-link{margin-left:0}}
+@media(max-width:600px){.about-vyb h2,.service-paths h2{font-size:clamp(40px,11vw,57px)}.about-vyb-monogram{font-size:90px}.about-vyb-team{padding:22px}.founder-row strong{font-size:22px}}
