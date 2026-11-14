@@ -17,7 +17,7 @@
 .site-header.has-scrolled { box-shadow:0 12px 32px #0002; border-bottom-color:#b9956050; }
 .button, .service-path, .project-card, .round-link { transition:translate 300ms var(--vyb-ease), box-shadow 300ms ease, background 250ms ease, color 250ms ease; }
 .project-screenshot { transition:transform 650ms var(--vyb-ease); }
-.main-nav a:focus-visible::after { transform:scaleX(1); }
+/* Keyboard focus uses the existing outline; the underline belongs to the active section. */
 .contact-orbit { animation-play-state:paused; }
 .contact.orbit-active .contact-orbit { animation-play-state:running; }
 .catalog-filters { scroll-margin-top:110px; }

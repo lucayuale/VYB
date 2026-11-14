@@ -1,7 +1,7 @@
-# Corrección del indicador del menú
+# Indicador activo del menú
 
-El indicador anterior conservaba la última sección pasada incluso fuera de ella. Ahora solo marca la sección que está debajo del encabezado y se recalcula al desplegar el catálogo, cambiar idioma o modificar el tamaño de la ventana. Se evita el hover persistente en pantallas táctiles.
+Se eliminó la línea dorada permanente de Presupuesto. Todos los enlaces usan el mismo indicador, activado por aria-current según la sección visible. Pasar el mouse no crea una segunda línea; el foco por teclado conserva su contorno accesible.
 
-Reemplazar `app.js` y `motion.css`. El ZIP también contiene el proyecto completo. No requiere compilación.
+Reemplazar styles.css, app.js y motion.css en la raíz del repositorio. El resto del proyecto conserva las animaciones y el catálogo compacto. No requiere instalación ni compilación.
 
-Prueba: `node tests/verify-navigation.mjs`. Validación automatizada aprobada; esta corrección no se comprobó en navegador.
+Pruebas: node --check app.js; node tests/verify-navigation.mjs; node tests/verify-motion-catalog.mjs. Corrección validada por pruebas automáticas; revisión visual en navegador pendiente.

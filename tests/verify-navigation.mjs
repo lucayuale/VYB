@@ -13,3 +13,9 @@ items[2].section.getBoundingClientRect=()=>({top:100,bottom:600});
 c.updateActive();assert.deepEqual(items.map(i=>i.link.active),[false,false,true]);
 assert.match(source,/new ResizeObserver\(scheduleActive\)/);
 console.log('PASS: current section, clearing stale highlight, layout updates.');
+
+const css=readFileSync(new URL('../styles.css',import.meta.url),'utf8');
+assert.ok(css.includes('.main-nav .nav-contact{color:#c5c0b8;border-bottom:1px solid transparent;padding-bottom:5px}'));
+assert.ok(!css.includes('.main-nav a:hover::after,'));
+assert.ok(css.includes('.main-nav a[aria-current="location"]::after'));
+console.log('PASS: quote has no permanent underline; underline tracks aria-current only.');
