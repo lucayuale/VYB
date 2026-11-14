@@ -1,44 +1,224 @@
 (() => {
-'use strict';const c=window.VYB_CONFIG;if(!c)throw Error('Missing config.js');
-function https(v){try{const u=new URL(v);return u.protocol==='https:'&&!u.username&&!u.password?u.href:'';}catch{return '';}}
-function selectImages(items,filter){return items.filter(x=>filter==='all'||x.category===filter);}
-function nextIndex(i,step,length){return length?(i+step+length)%length:0;}
-window.VYB_ATHLETE_HELPERS={https,selectImages,nextIndex};if(typeof document==='undefined')return;
-const $=id=>document.getElementById(id),node=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e;};let lang=c.language.default,filter='all',visible=[],index=0,previousFocus=null,inertBackground=[];
-try{const saved=localStorage.getItem(c.language.storageKey);if(['es','en'].includes(saved))lang=saved;}catch{}
-const local=v=>v&&typeof v==='object'?(v[lang]||v.es||''):(v??''),t=k=>c.translations[lang][k]||k;
-const nav=$('main-nav'),menu=$('menu-toggle'),mobile=matchMedia('(max-width:960px)'),lightbox=$('lightbox');
-function syncMenu(){const open=menu.getAttribute('aria-expanded')==='true';nav.inert=mobile.matches&&!open;menu.setAttribute('aria-label',t(open?'closeMenu':'openMenu'));}
-function closeMenu(focus=false){menu.setAttribute('aria-expanded','false');nav.classList.remove('open');syncMenu();if(focus)menu.focus();}
-menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));nav.classList.toggle('open',open);syncMenu();});mobile.addEventListener('change',()=>closeMenu());nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>closeMenu()));document.addEventListener('click',e=>{if(!e.target.closest('.header'))closeMenu();});
-function reveal(){if(window.ABMotion){window.ABMotion.refresh();}else{document.querySelectorAll('.reveal').forEach(e=>e.classList.add('visible'));}}
-function lightboxText(){const x=visible[index];$('lightbox-image').src=x.src;$('lightbox-image').alt=local(x.alt);$('lightbox-caption').textContent=local(x.caption);$('lightbox-counter').textContent=t('imageCount').replace('{current}',index+1).replace('{total}',visible.length);$('lightbox-prev').disabled=visible.length<2;$('lightbox-next').disabled=visible.length<2;}
-function openGallery(trigger,i){closeMenu();index=i;lightboxText();previousFocus=trigger;lightbox.hidden=false;inertBackground=[...document.body.children].filter(e=>e!==lightbox).map(e=>[e,e.inert]);inertBackground.forEach(([e])=>e.inert=true);document.body.classList.add('modal-open');$('lightbox-close').focus();}
-function closeGallery(){if(lightbox.hidden)return;lightbox.hidden=true;$('lightbox-image').removeAttribute('src');inertBackground.forEach(([e,value])=>e.inert=value);inertBackground=[];document.body.classList.remove('modal-open');if(previousFocus?.isConnected)previousFocus.focus();}
-function move(step){index=nextIndex(index,step,visible.length);lightboxText();}
-$('lightbox-close').addEventListener('click',closeGallery);$('lightbox-prev').addEventListener('click',()=>move(-1));$('lightbox-next').addEventListener('click',()=>move(1));lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeGallery();});document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!lightbox.hidden){e.preventDefault();closeGallery();}else if(menu.getAttribute('aria-expanded')==='true')closeMenu(true);}if(!lightbox.hidden){if(['ArrowRight','ArrowLeft'].includes(e.key)){e.preventDefault();move(e.key==='ArrowRight'?1:-1);}if(e.key==='Tab'){const stops=[...lightbox.querySelectorAll('button:not([disabled])')],first=stops[0],last=stops.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}}});
-function filters(){$('gallery-filters').replaceChildren();for(const[id,key]of [['all','galleryAll'],['competition','galleryCompetition'],['journey','galleryJourney']]){const b=node('button','',t(key));b.type='button';b.dataset.filter=id;b.setAttribute('aria-pressed',String(id===filter));b.addEventListener('click',()=>{filter=id;filters();gallery();$('gallery-filters').querySelector(`[data-filter="${id}"]`).focus();});$('gallery-filters').append(b);}$('gallery-filters').setAttribute('aria-label',t('galleryFilters'));}
-function gallery(){
- const moments=selectImages(c.fightClips||[],filter);
- visible=[]; $('gallery-grid').querySelectorAll('video').forEach(video=>video.pause()); $('gallery-grid').replaceChildren();
- moments.forEach(x=>{
-  const card=node('article','fight-card');
-  if(x.src){
-   const video=node('video','fight-video');video.controls=true;video.playsInline=true;video.preload='none';video.poster=x.poster;video.src=x.src;video.setAttribute('aria-label',local(x.title)+'. '+local(x.description));
-   video.append(document.createTextNode(t('videoUnsupported')));
-   const failure=node('p','video-error',t('videoError'));failure.hidden=true;failure.setAttribute('role','status');
-   video.addEventListener('error',()=>{failure.hidden=false;});
-   video.addEventListener('play',()=>document.querySelectorAll('.fight-video').forEach(other=>{if(other!==video)other.pause();}));
-   card.append(video,failure);
-  }else{const placeholder=node('div','fight-placeholder');placeholder.append(node('span','','2023'),node('p','',t('clipPending')));card.append(placeholder);}
-  const caption=node('div','fight-caption');caption.append(node('small','',local(x.date)),node('h3','',local(x.title)),node('p','',local(x.description)));
-  if(x.src){const link=node('a','text-link',t('videoOpen')+' ↗');link.href=x.src;link.target='_blank';link.rel='noopener noreferrer';caption.append(link);}
-  card.append(caption);$('gallery-grid').append(card);
- });$('gallery-status').textContent=t('galleryCount').replace('{count}',moments.length);reveal();
-}
-function partnerURL(title){if(c.contact.whatsapp)return 'https://wa.me/'+c.contact.whatsapp.replace(/\D/g,'')+'?text='+encodeURIComponent(t('messageBody').replace('{name}',title));if(c.contact.email)return 'mailto:'+c.contact.email+'?subject='+encodeURIComponent(title);return '#contact';}
-function content(){$('fact-list').replaceChildren();c.facts.forEach(x=>{const a=node('div','fact');a.append(node('strong','',local(x.value)),node('small','',local(x.label)));$('fact-list').append(a);});$('record-value').textContent=local(c.facts[0].value);$('achievement-list').replaceChildren();c.achievements.forEach((x,i)=>{const a=node('article','achievement'),text=node('div');text.append(node('h3','',local(x.title)),node('p','',local(x.body)));a.append(node('span','',String(i+1).padStart(2,'0')),text);$('achievement-list').append(a);});$('event-date').textContent=local(c.nextEvent.dateLabel);$('event-name').textContent=local(c.nextEvent.title);$('event-location').textContent=local(c.nextEvent.location);$('partner-list').replaceChildren();c.partnerships.forEach(x=>{const a=node('article','partner-card reveal'),link=node('a','text-link',t('partnerCTA')+' ↗');link.href=partnerURL(local(x.title));if(link.href.startsWith('https:')){link.target='_blank';link.rel='noopener noreferrer';}a.append(node('small','',local(x.tag)),node('h3','',local(x.title)),node('p','',local(x.body)),link);$('partner-list').append(a);});}
-function contacts(){$('email-link').hidden=!c.contact.email;$('email-link').href=c.contact.email?'mailto:'+c.contact.email:'#contact';$('contact-email').textContent=c.contact.email||'';$('whatsapp-link').hidden=!c.contact.whatsapp;$('whatsapp-link').href=c.contact.whatsapp?'https://wa.me/'+c.contact.whatsapp.replace(/\D/g,''):'#contact';$('instagram-link').hidden=!https(c.contact.instagram);$('instagram-link').href=https(c.contact.instagram)||'#contact';if(c.contact.instagram){const username=new URL(c.contact.instagram).pathname.split('/').filter(Boolean)[0];$('instagram-link').firstElementChild.textContent='Instagram / @'+username;}document.querySelectorAll('[data-instagram]').forEach(a=>{a.hidden=!https(c.contact.instagram);a.href=https(c.contact.instagram)||'#contact';});document.querySelectorAll('[data-proposal]').forEach(a=>{a.href=partnerURL(t('partnersTitle'));});$('contact-pending').hidden=Boolean(c.contact.email||c.contact.whatsapp||c.contact.instagram);}
-function language(value,save=true){lang=value==='en'?'en':'es';document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(e=>e.textContent=t(e.dataset.i18n));document.querySelectorAll('[data-brand]').forEach(e=>e.textContent=c.business.name);$('language').textContent=lang==='es'?'ES / EN':'EN / ES';$('language').setAttribute('aria-label',t('languageSwitch'));nav.setAttribute('aria-label',t('navLabel'));$('footer-nav').setAttribute('aria-label',t('footerNav'));$('hero-image').alt=local(c.images.heroAlt);$('portrait-image').alt=c.business.name;$('action-image').alt=c.business.name;lightbox.setAttribute('aria-label',t('galleryLabel'));for(const[id,key]of [['lightbox-close','galleryClose'],['lightbox-prev','galleryPrev'],['lightbox-next','galleryNext']])$(id).setAttribute('aria-label',t(key));document.title=local(c.seo.title);$('meta-description').content=local(c.seo.description);document.querySelector('meta[property="og:title"]').content=local(c.seo.title);document.querySelector('meta[property="og:description"]').content=local(c.seo.description);content();filters();gallery();contacts();window.ABUpdates?.refresh();syncMenu();reveal();if(save)try{localStorage.setItem(c.language.storageKey,lang);}catch{}}
-$('language').addEventListener('click',()=>language(lang==='es'?'en':'es'));Object.entries(c.brand.colors).forEach(([k,v])=>{if(/^#[\da-f]{6}$/i.test(v))document.documentElement.style.setProperty('--'+k,v);});$('year').textContent=new Date().getFullYear();let queued=false;const links=[...nav.querySelectorAll('a')];function active(){queued=false;let current;links.forEach(a=>{if(document.querySelector(a.getAttribute('href')).getBoundingClientRect().top<=140)current=a;});links.forEach(a=>current===a?a.setAttribute('aria-current','location'):a.removeAttribute('aria-current'));}window.addEventListener('scroll',()=>{if(!queued){queued=true;requestAnimationFrame(active);}},{passive:true});language(lang,false);active();
+  const copy = {
+    es: {
+      skip:"Saltar al contenido", menu:"Menú", menuOpen:"Abrir menú", menuClose:"Cerrar menú", navVision:"Enfoque", navProjects:"Proyectos", navProcess:"Proceso", navContact:"Contacto", heroEyebrow:"ESTUDIO DIGITAL INDEPENDIENTE", heroLine1:"Tu marca.", heroLine2:"En su mejor versión.", heroLede:"Diseñamos páginas web con identidad, pensadas para que cada negocio se vea tan bien como trabaja.", heroPrimary:"Explorar proyectos", heroSecondary:"Conocé VYB", heroFootnote:"DISEÑO · DESARROLLO · ACOMPAÑAMIENTO", artCaption:"UNA PRESENCIA PROPIA", artSide:"HECHO PARA<br>DESTACARSE", scroll:"SEGUIR EXPLORANDO", introKicker:"LO QUE NOS MUEVE", introTitle:"No hacemos páginas para llenar espacio. Creamos presencia.", introBody:"Cada negocio tiene algo que lo hace distinto. Lo convertimos en una experiencia digital clara, cuidada y fácil de recorrer, para que las personas entiendan quién sos y qué ofrecés desde el primer momento.", projectsKicker:"SELECCIÓN VYB", projectsTitle:"Ideas con carácter.<br><em>Listas para crecer.</em>", projectsIntro:"Diseños creados para distintos rubros, con una misma atención al detalle. Cada proyecto puede adaptarse a la identidad de su negocio.", projectsNote:"Los enlaces de las demos se agregarán cuando estén publicados.", openProject:"Abrir demo", linkPending:"Enlace próximo", statementOverline:"UNA BUENA WEB SE NOTA.", statementLine:"Y también se siente.", approachKicker:"SIMPLE, DESDE EL PRIMER DÍA", approachTitle:"Un proceso claro.<br><em>Un resultado propio.</em>", approachIntro:"Trabajamos en etapas simples para que siempre sepas qué estamos haciendo y qué sigue.", step1Title:"Nos conocemos", step1Body:"Entendemos tu negocio, tus objetivos y qué querés transmitir.", step2Title:"Diseñamos tu web", step2Body:"Definimos una identidad digital y organizamos la información para que sea fácil de usar.", step3Title:"La ponemos en marcha", step3Body:"Revisamos juntos cada detalle y te acompañamos para que esté lista para mostrarse.", contactKicker:"EL PRÓXIMO PASO", contactOverline:"¿TENÉS UNA IDEA?", contactTitle:"Hagamos que<br><em>se vea.</em>", contactBody:"Estamos preparando nuestros canales de contacto. Mientras tanto, podés recorrer los proyectos y conocer el estilo de VYB.", contactButton:"Ver proyectos", contactMeta:"DISEÑO DIGITAL PARA NEGOCIOS CON VISIÓN", footerNote:"Diseño web con identidad.", backTop:"VOLVER ARRIBA"
+    },
+    en: {
+      skip:"Skip to content", menu:"Menu", menuOpen:"Open menu", menuClose:"Close menu", navVision:"Approach", navProjects:"Projects", navProcess:"Process", navContact:"Contact", heroEyebrow:"INDEPENDENT DIGITAL STUDIO", heroLine1:"Your brand.", heroLine2:"At its best.", heroLede:"We design distinctive websites that help every business look as good as the work it does.", heroPrimary:"Explore projects", heroSecondary:"Meet VYB", heroFootnote:"DESIGN · DEVELOPMENT · SUPPORT", artCaption:"A PRESENCE OF YOUR OWN", artSide:"MADE TO<br>STAND OUT", scroll:"KEEP EXPLORING", introKicker:"WHAT MOVES US", introTitle:"We don’t make websites to fill space. We create presence.", introBody:"Every business has something that sets it apart. We turn that into a clear, thoughtful digital experience, so people understand who you are and what you offer from the first moment.", projectsKicker:"THE VYB SELECTION", projectsTitle:"Ideas with character.<br><em>Ready to grow.</em>", projectsIntro:"Designs made for different industries, with the same attention to detail. Each project can be tailored to a business’s own identity.", projectsNote:"Demo links will be added once the pages are published.", openProject:"Open demo", linkPending:"Link coming soon", statementOverline:"A GOOD WEBSITE STANDS OUT.", statementLine:"And feels right, too.", approachKicker:"SIMPLE FROM DAY ONE", approachTitle:"A clear process.<br><em>A result of your own.</em>", approachIntro:"We work in simple stages, so you always know what we’re doing and what comes next.", step1Title:"We get to know you", step1Body:"We learn about your business, your goals, and what you want to express.", step2Title:"We design your website", step2Body:"We shape a digital identity and organize the information to make it easy to use.", step3Title:"We bring it to life", step3Body:"We review every detail together and help get your website ready to go live.", contactKicker:"THE NEXT STEP", contactOverline:"HAVE AN IDEA?", contactTitle:"Let’s make it<br><em>visible.</em>", contactBody:"We’re preparing our contact channels. In the meantime, explore the projects and get to know VYB’s style.", contactButton:"View projects", contactMeta:"DIGITAL DESIGN FOR BUSINESSES WITH VISION", footerNote:"Web design with identity.", backTop:"BACK TO TOP"
+    }
+  };
+
+  Object.assign(copy.es, window.VYB_COPY?.es);
+  Object.assign(copy.en, window.VYB_COPY?.en);
+  let activeFilter = "all";
+  let selectedMode = "basic";
+  const CATALOG_PAGE_SIZE = 2;
+  let visibleProjects = CATALOG_PAGE_SIZE;
+
+
+  const config = window.VYB_CONFIG || { projects: [] };
+  const langButton = document.querySelector(".language-toggle");
+  const nav = document.querySelector(".main-nav");
+  const menuButton = document.querySelector(".menu-toggle");
+  const projectGrid = document.querySelector("#project-grid");
+  const safeUrl = (value) => {
+    if (typeof value !== "string" || !value.trim()) return "";
+    try {
+      const parsed = new URL(value, window.location.href);
+      if (parsed.username || parsed.password) return "";
+      if (parsed.protocol === "https:" || (parsed.origin === window.location.origin && value.startsWith("/"))) return parsed.href;
+    } catch { /* invalid or incomplete link: show the placeholder */ }
+    return "";
+  };
+
+  const text = (key) => copy[document.documentElement.lang][key] || key;
+  const node = (tag, className, value) => {
+    const el = document.createElement(tag);
+    if (className) el.className = className;
+    if (value !== undefined) el.textContent = value;
+    return el;
+  };
+  function localImage(value) {
+    return typeof value === "string" && /^assets\/[a-zA-Z0-9_./-]+\.(webp|png|jpe?g|avif)$/i.test(value) && !value.split("/").includes("..") ? value : "";
+  }
+  function renderProjects(lang) {
+    projectGrid.replaceChildren();
+    const projects = (Array.isArray(config.projects) ? config.projects : []).filter(project => activeFilter === "all" || project.category === activeFilter);
+    document.querySelector("#catalog-count").textContent = `${projects.length} ${text(projects.length === 1 ? "designCountOne" : "designCount")}`;
+    if (!projects.length) projectGrid.append(node("p", "catalog-empty", text("empty")));
+    projects.forEach((project, index) => {
+      const projectName = typeof project.name === "string" ? project.name : (project.name?.[lang] || project.name?.es || "VYB");
+      const card = node("article", `project-card reveal theme-${/^(obsidian|cosmetica|gym|nails|restaurant|mechanic|wedding|tattoo|yoga|pet-grooming)$/.test(project.theme) ? project.theme : "default"}`);
+      card.style.setProperty("--card-order", String(index));
+      const visual = node("div", "project-visual");
+      const imagePath = localImage(project.screenshot);
+      if (imagePath) {
+        const img = node("img", "project-screenshot"); img.src = imagePath; img.alt = project.screenshotAlt?.[lang] || projectName; img.loading = "lazy"; img.decoding = "async"; img.width = 800; img.height = 600; visual.append(img); visual.append(node("span", "concept-label", text("screenshotLabel")));
+      } else {
+        const preview = node("div", "site-preview"); preview.setAttribute("aria-hidden", "true");
+        const top = node("div", "preview-top"); top.append(node("strong", "", projectName), node("span", "", "—  —  •"));
+        const body = node("div", "preview-body");
+        const words = node("div", "preview-words"); words.append(node("small", "", text("previewTag")), node("b", "", projectName));
+        words.append(node("span", "preview-rule"), node("span", "preview-rule short"), node("i", "preview-button", text("previewExplore")));
+        const art = node("div", "preview-art"); art.append(node("span"), node("i")); body.append(words, art);
+        const mini = node("div", "preview-tiles"); for (let i=0;i<3;i++) mini.append(node("span"));
+        preview.append(top,body,mini); visual.append(preview);
+        visual.append(node("span", "concept-label", text(project.published === true ? "illustrativePreview" : "concept")));
+      }
+      const details = node("div", "project-details");
+      details.append(node("span", "project-category", project.type?.[lang] || ""), node("h3", "", projectName), node("p", "project-description", project.description?.[lang] || project.line?.[lang] || ""));
+      const url = project.published === true ? safeUrl(project.url) : "";
+      const action = node(url ? "a" : "span", url ? "project-link" : "project-pending", url ? text("openProject") : text("linkPending"));
+      if (url) { action.dataset.demo = project.id; action.href = url; action.target = "_blank"; action.rel = "noopener noreferrer"; action.setAttribute("aria-label", `${text("openProject")}: ${projectName}`); }
+      const meta = node("div", "project-availability");
+      meta.append(node("span", url ? "availability live" : "availability pending", text(url ? "publishedLabel" : "linkPending")),node("span", "mode-label",project.mode === "booking" ? "Booking" : (project.published === true ? text("demoSiteLabel") : text("plannedMode"))));
+      details.prepend(meta);
+      if(project.notice?.[lang])details.append(node("p","project-notice",project.notice[lang]));
+      details.append(action); card.append(visual, details); projectGrid.append(card);
+    });
+    syncCatalog();
+  }
+  function syncCatalog() {
+    const cards = [...projectGrid.querySelectorAll('.project-card')];
+    cards.forEach((card, index) => { card.hidden = index >= visibleProjects; });
+    const shown = Math.min(visibleProjects, cards.length);
+    const label = text('catalogShowing').replace('{shown}', shown).replace('{total}', cards.length);
+    document.querySelector('#catalog-count').textContent = label;
+    const button = document.querySelector('#catalog-more');
+    button.hidden = cards.length <= CATALOG_PAGE_SIZE;
+    button.setAttribute('aria-expanded', String(shown > CATALOG_PAGE_SIZE));
+    const full = shown === cards.length;
+    button.querySelector('[data-catalog-label]').textContent = text(full ? 'catalogLess' : 'catalogMore');
+    button.querySelector('[data-catalog-arrow]').textContent = full ? '↑' : '↓';
+    window.VYBMotion?.refresh();
+  }
+  document.querySelector('#catalog-more').addEventListener('click', () => {
+    const total = projectGrid.querySelectorAll('.project-card').length;
+    const collapse = visibleProjects >= total;
+    visibleProjects = collapse ? CATALOG_PAGE_SIZE : visibleProjects + CATALOG_PAGE_SIZE;
+    syncCatalog();
+    if (collapse) document.querySelector('.catalog-filters').scrollIntoView({block:'start', behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+  });
+
+  function updateMode() {
+    document.querySelectorAll("[data-mode]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.mode === selectedMode)));
+    document.querySelectorAll("[data-column]").forEach(cell => cell.classList.toggle("selected-column", cell.dataset.column === selectedMode));
+    document.querySelector("#mode-name").textContent = selectedMode === "custom" ? text("customName").toUpperCase() : selectedMode.toUpperCase();
+    document.querySelector("#mode-title").textContent = text(`${selectedMode}Title`);
+    document.querySelector("#mode-description").textContent = text(`${selectedMode}Body`);
+    document.querySelector(".mode-story").dataset.selected = selectedMode;
+    document.querySelector("#selected-quote").dataset.quote = selectedMode;
+  }
+
+  function setLanguage(lang) {
+    const selected = lang === "en" ? "en" : "es";
+    document.documentElement.lang = selected;
+    document.querySelectorAll("[data-i18n]").forEach((node) => {
+      const key = node.dataset.i18n;
+      if (copy[selected][key] !== undefined) node.innerHTML = copy[selected][key];
+    });
+    document.querySelectorAll("[data-i18n-alt]").forEach(el => { el.alt = copy[selected][el.dataset.i18nAlt] || "VYB"; });
+    document.querySelectorAll("[data-i18n-aria]").forEach((node) => {
+      const key = node.dataset.i18nAria;
+      if (copy[selected][key]) node.setAttribute("aria-label", copy[selected][key]);
+    });
+    document.querySelectorAll("[data-local-href-en][data-local-href-es]").forEach(link => {
+      link.setAttribute("href", link.dataset[selected === "es" ? "localHrefEs" : "localHrefEn"]);
+    });
+    langButton.querySelector(".lang-current").textContent = selected.toUpperCase();
+    langButton.querySelector(".lang-next").textContent = selected === "es" ? "EN" : "ES";
+    langButton.setAttribute("aria-label", selected === "es" ? "Cambiar idioma a inglés" : "Switch language to Spanish");
+    try { localStorage.setItem("vyb-language", selected); } catch { /* storage may be disabled */ }
+    renderFilters();
+    renderProjects(selected);
+    updateMode();
+    document.title = config.seo?.title?.[selected] || "VYB";
+    const description = config.seo?.description?.[selected] || "";
+    document.querySelector('meta[name="description"]').content = description;
+    document.querySelector('meta[property="og:title"]').content = document.title;
+    document.querySelector('meta[property="og:description"]').content = description;
+    syncMenu();
+    document.dispatchEvent(new CustomEvent("vyb:language"));
+    document.querySelector('meta[property="og:locale"]')?.setAttribute("content",selected === "es" ? "es_AR" : "en_US");
+  }
+
+  function revealNew() {
+    if (window.VYBMotion) window.VYBMotion.refresh();
+    else document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+  }
+
+  langButton.addEventListener("click", () => setLanguage(document.documentElement.lang === "es" ? "en" : "es"));
+  const mobileQuery = window.matchMedia("(max-width: 700px)");
+  function syncMenu() {
+    const open = menuButton.getAttribute("aria-expanded") === "true";
+    nav.inert = mobileQuery.matches && !open;
+    document.body.classList.toggle("nav-open",mobileQuery.matches && open);
+    menuButton.setAttribute("aria-label", text(open ? "menuClose" : "menuOpen"));
+  }
+  function closeMenu(restoreFocus = false) {
+    nav.classList.remove("is-open"); menuButton.setAttribute("aria-expanded", "false");
+    menuButton.dataset.i18nAria = "menuOpen"; syncMenu();
+    if (restoreFocus) menuButton.focus();
+  }
+  menuButton.addEventListener("click", () => {
+    const open = menuButton.getAttribute("aria-expanded") !== "true";
+    menuButton.setAttribute("aria-expanded", String(open)); nav.classList.toggle("is-open", open);
+    menuButton.dataset.i18nAria = open ? "menuClose" : "menuOpen"; syncMenu();
+  });
+  nav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => closeMenu()));
+  document.addEventListener("keydown", event => { if (event.key === "Escape" && menuButton.getAttribute("aria-expanded") === "true") closeMenu(true); });
+  document.addEventListener("click", event => { if (!event.target.closest(".site-header")) closeMenu(); });
+  mobileQuery.addEventListener("change", () => closeMenu());
+  function renderFilters() {
+    const holder=document.querySelector('.catalog-filters'); holder.replaceChildren();
+    const categories=[{id:'all',label:{es:copy.es.all,en:copy.en.all}},...(config.categories||[])];
+    for(const category of categories){
+      const button=node('button','',category.label?.[document.documentElement.lang]||category.id);
+      button.type='button';button.dataset.filter=category.id;button.setAttribute('aria-pressed',String(category.id===activeFilter));
+      button.addEventListener('click',()=>{activeFilter=category.id;visibleProjects=CATALOG_PAGE_SIZE;renderFilters();renderProjects(document.documentElement.lang);holder.querySelectorAll('button').forEach(b=>{if(b.dataset.filter===activeFilter)b.focus();});});holder.append(button);
+    }
+  }
+  document.querySelectorAll("[data-mode]").forEach(button => button.addEventListener("click", () => { selectedMode = button.dataset.mode; updateMode(); }));
+  const canonical = safeUrl(config.seo?.canonicalUrl);
+  if (canonical && canonical.startsWith("https://")) {
+    let link = document.querySelector('link[rel="canonical"]'); if(!link){link=document.createElement("link");link.rel="canonical";document.head.append(link);} link.href=canonical;
+  }
+  const navSections = [...nav.querySelectorAll('a[href^="#"]')].map(link => ({link, section:document.querySelector(link.getAttribute("href"))}));
+  let ticking = false;
+  function updateActive() {
+    let current = null;
+    const marker = document.querySelector('.site-header').getBoundingClientRect().bottom + 40;
+    navSections.forEach(item => {
+      const rect = item.section.getBoundingClientRect();
+      if (rect.top <= marker && rect.bottom > marker) current = item;
+    });
+    navSections.forEach(item => { if (item === current) item.link.setAttribute("aria-current","location"); else item.link.removeAttribute("aria-current"); });
+    ticking = false;
+  }
+  function scheduleActive() {
+    if (!ticking) { ticking = true; requestAnimationFrame(updateActive); }
+  }
+  window.addEventListener("scroll", scheduleActive, {passive:true});
+  window.addEventListener("resize", scheduleActive, {passive:true});
+  // Catalog expansion, translations and image loading can move sections without scrolling.
+  if ('ResizeObserver' in window) {
+    const navLayoutObserver = new ResizeObserver(scheduleActive);
+    document.querySelectorAll('main, main section, .site-header').forEach(section => navLayoutObserver.observe(section));
+  }
+  updateActive();
+  document.querySelector("#year").textContent = new Date().getFullYear();
+
+  let initial = config.defaultLanguage === "en" ? "en" : "es";
+  try { const stored = localStorage.getItem("vyb-language"); if (["en","es"].includes(stored)) initial = stored; } catch { /* keep configured default */ }
+  setLanguage(initial);
+  revealNew();
+  const mobileQuote = document.querySelector('.mobile-quote');
+  if ('IntersectionObserver' in window) {
+    const visibility = new Map();
+    const quoteObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => visibility.set(entry.target.id,entry.isIntersecting));
+      mobileQuote.hidden = Boolean(visibility.get('inicio') || visibility.get('contacto'));
+    });
+    ['inicio','contacto'].forEach(id => quoteObserver.observe(document.getElementById(id)));
+  }
 })();
