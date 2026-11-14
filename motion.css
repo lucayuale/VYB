@@ -46,3 +46,9 @@
   .button:hover, .service-path:hover, .project-card:hover { translate:none; }
   .catalog-expand-arrow { transition:none; transform:none!important; }
 }
+
+/* Avoid a sticky hover underline on touchscreens; retain keyboard focus. */
+@media(hover:none) {
+  .main-nav a:hover:not([aria-current]):not(:focus-visible) { color:#c5c0b8; }
+  .main-nav a:hover:not([aria-current]):not(:focus-visible)::after { transform:scaleX(0); }
+}

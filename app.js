@@ -187,11 +187,24 @@
   let ticking = false;
   function updateActive() {
     let current = null;
-    navSections.forEach(item => { if (item.section.getBoundingClientRect().top <= 150) current = item; });
+    const marker = document.querySelector('.site-header').getBoundingClientRect().bottom + 40;
+    navSections.forEach(item => {
+      const rect = item.section.getBoundingClientRect();
+      if (rect.top <= marker && rect.bottom > marker) current = item;
+    });
     navSections.forEach(item => { if (item === current) item.link.setAttribute("aria-current","location"); else item.link.removeAttribute("aria-current"); });
     ticking = false;
   }
-  window.addEventListener("scroll", () => { if (!ticking) { ticking=true; requestAnimationFrame(updateActive); } }, {passive:true});
+  function scheduleActive() {
+    if (!ticking) { ticking = true; requestAnimationFrame(updateActive); }
+  }
+  window.addEventListener("scroll", scheduleActive, {passive:true});
+  window.addEventListener("resize", scheduleActive, {passive:true});
+  // Catalog expansion, translations and image loading can move sections without scrolling.
+  if ('ResizeObserver' in window) {
+    const navLayoutObserver = new ResizeObserver(scheduleActive);
+    document.querySelectorAll('main, main section, .site-header').forEach(section => navLayoutObserver.observe(section));
+  }
   updateActive();
   document.querySelector("#year").textContent = new Date().getFullYear();
 

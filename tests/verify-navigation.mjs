@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import vm from 'node:vm';
+const source=readFileSync(new URL('../app.js',import.meta.url),'utf8');
+const fn=source.slice(source.indexOf('  function updateActive()'),source.indexOf('  function scheduleActive()'));
+const items=[{top:-200,bottom:-10},{top:100,bottom:500},{top:600,bottom:1000}].map(rect=>({section:{getBoundingClientRect:()=>rect},link:{active:false,setAttribute(){this.active=true},removeAttribute(){this.active=false}}}));
+const c={navSections:items,document:{querySelector:()=>({getBoundingClientRect:()=>({bottom:90})})},ticking:true};
+vm.createContext(c);vm.runInContext(fn,c);
+c.updateActive();assert.deepEqual(items.map(i=>i.link.active),[false,true,false]);
+items[1].section.getBoundingClientRect=()=>({top:-400,bottom:100});
+c.updateActive();assert.ok(items.every(i=>!i.link.active),'Previous section must clear in a gap');
+items[2].section.getBoundingClientRect=()=>({top:100,bottom:600});
+c.updateActive();assert.deepEqual(items.map(i=>i.link.active),[false,false,true]);
+assert.match(source,/new ResizeObserver\(scheduleActive\)/);
+console.log('PASS: current section, clearing stale highlight, layout updates.');
