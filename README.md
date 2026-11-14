@@ -66,3 +66,23 @@ Ver `PUBLICAR_GITHUB.md`. El ZIP oficial contiene archivos de raíz para el repo
 La cuenta pública `https://www.instagram.com/vyb.webdesign/` se muestra en Contacto y en el pie de página. La configuración se encuentra en `config.js > social.instagram`, y el pie sigue validando que el dominio pertenezca a Instagram. Se agregó `sameAs` (Organization) para que los buscadores asocien la web y el perfil comercial. No se modificaron formularios, correos, enlaces a las 10 demos ni los controles de privacidad.
 
 **Pendiente de publicación:** este ZIP actualiza archivos locales, no cambia automáticamente el Worker ni GitHub. Publicá los archivos en el repositorio/hosting que ya usás para la web oficial. Cuando compres un dominio, ajustá `seo.canonicalUrl`, metaetiquetas y el `url` del JSON-LD al nuevo dominio, sin cambiar las demos.
+
+## Animaciones y catálogo compacto — actualización 14/11/2026
+
+Ver `CAMBIOS_ANIMACIONES_CATALOGO.md` y `PRUEBAS_ANIMACIONES_CATALOGO.md`. El sitio muestra dos demos inicialmente y permite desplegar otras dos con una flecha. Se mantiene el inglés inicial y la preferencia ES/EN guardada.
+
+Probar en Windows PowerShell:
+
+```powershell
+Expand-Archive -LiteralPath "$HOME\Downloads\VYB_WEB_ANIMACIONES_Y_CATALOGO_COMPACTO.zip" -DestinationPath "$HOME\Downloads\VYB-Catalogo-Compacto"
+Set-Location "$HOME\Downloads\VYB-Catalogo-Compacto"
+py -m http.server 8097 --bind 127.0.0.1
+```
+
+Abrir `http://127.0.0.1:8097/`. Detener con Ctrl+C. No requiere instalar dependencias ni compilar.
+
+Pruebas opcionales con Node:
+
+```powershell
+Get-ChildItem .\tests\verify*.mjs | ForEach-Object { node $_.FullName }
+```

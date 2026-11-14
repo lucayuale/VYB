@@ -12,6 +12,9 @@
   Object.assign(copy.en, window.VYB_COPY?.en);
   let activeFilter = "all";
   let selectedMode = "basic";
+  const CATALOG_PAGE_SIZE = 2;
+  let visibleProjects = CATALOG_PAGE_SIZE;
+
 
   const config = window.VYB_CONFIG || { projects: [] };
   const langButton = document.querySelector(".language-toggle");
@@ -39,15 +42,13 @@
     return typeof value === "string" && /^assets\/[a-zA-Z0-9_./-]+\.(webp|png|jpe?g|avif)$/i.test(value) && !value.split("/").includes("..") ? value : "";
   }
   function renderProjects(lang) {
-    observer?.takeRecords();
-    projectGrid.querySelectorAll(".reveal").forEach(el => observer?.unobserve(el));
     projectGrid.replaceChildren();
     const projects = (Array.isArray(config.projects) ? config.projects : []).filter(project => activeFilter === "all" || project.category === activeFilter);
     document.querySelector("#catalog-count").textContent = `${projects.length} ${text(projects.length === 1 ? "designCountOne" : "designCount")}`;
     if (!projects.length) projectGrid.append(node("p", "catalog-empty", text("empty")));
     projects.forEach((project, index) => {
       const projectName = typeof project.name === "string" ? project.name : (project.name?.[lang] || project.name?.es || "VYB");
-      const card = node("article", `project-card theme-${/^(obsidian|cosmetica|gym|nails|restaurant|mechanic|wedding|tattoo|yoga|pet-grooming)$/.test(project.theme) ? project.theme : "default"}`);
+      const card = node("article", `project-card reveal theme-${/^(obsidian|cosmetica|gym|nails|restaurant|mechanic|wedding|tattoo|yoga|pet-grooming)$/.test(project.theme) ? project.theme : "default"}`);
       card.style.setProperty("--card-order", String(index));
       const visual = node("div", "project-visual");
       const imagePath = localImage(project.screenshot);
@@ -75,7 +76,29 @@
       if(project.notice?.[lang])details.append(node("p","project-notice",project.notice[lang]));
       details.append(action); card.append(visual, details); projectGrid.append(card);
     });
+    syncCatalog();
   }
+  function syncCatalog() {
+    const cards = [...projectGrid.querySelectorAll('.project-card')];
+    cards.forEach((card, index) => { card.hidden = index >= visibleProjects; });
+    const shown = Math.min(visibleProjects, cards.length);
+    const label = text('catalogShowing').replace('{shown}', shown).replace('{total}', cards.length);
+    document.querySelector('#catalog-count').textContent = label;
+    const button = document.querySelector('#catalog-more');
+    button.hidden = cards.length <= CATALOG_PAGE_SIZE;
+    button.setAttribute('aria-expanded', String(shown > CATALOG_PAGE_SIZE));
+    const full = shown === cards.length;
+    button.querySelector('[data-catalog-label]').textContent = text(full ? 'catalogLess' : 'catalogMore');
+    button.querySelector('[data-catalog-arrow]').textContent = full ? '↑' : '↓';
+    window.VYBMotion?.refresh();
+  }
+  document.querySelector('#catalog-more').addEventListener('click', () => {
+    const total = projectGrid.querySelectorAll('.project-card').length;
+    const collapse = visibleProjects >= total;
+    visibleProjects = collapse ? CATALOG_PAGE_SIZE : visibleProjects + CATALOG_PAGE_SIZE;
+    syncCatalog();
+    if (collapse) document.querySelector('.catalog-filters').scrollIntoView({block:'start', behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+  });
 
   function updateMode() {
     document.querySelectorAll("[data-mode]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.mode === selectedMode)));
@@ -120,14 +143,9 @@
   }
 
   function revealNew() {
-    const pending = document.querySelectorAll(".reveal:not(.is-visible)");
-    if (!("IntersectionObserver" in window)) { pending.forEach(node => node.classList.add("is-visible")); return; }
-    pending.forEach(node => observer.observe(node));
+    if (window.VYBMotion) window.VYBMotion.refresh();
+    else document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
   }
-
-  const observer = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
-    entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add("is-visible"); observer.unobserve(entry.target); } });
-  }, { threshold: 0.12 }) : null;
 
   langButton.addEventListener("click", () => setLanguage(document.documentElement.lang === "es" ? "en" : "es"));
   const mobileQuery = window.matchMedia("(max-width: 700px)");
@@ -157,7 +175,7 @@
     for(const category of categories){
       const button=node('button','',category.label?.[document.documentElement.lang]||category.id);
       button.type='button';button.dataset.filter=category.id;button.setAttribute('aria-pressed',String(category.id===activeFilter));
-      button.addEventListener('click',()=>{activeFilter=category.id;renderFilters();renderProjects(document.documentElement.lang);holder.querySelectorAll('button').forEach(b=>{if(b.dataset.filter===activeFilter)b.focus();});});holder.append(button);
+      button.addEventListener('click',()=>{activeFilter=category.id;visibleProjects=CATALOG_PAGE_SIZE;renderFilters();renderProjects(document.documentElement.lang);holder.querySelectorAll('button').forEach(b=>{if(b.dataset.filter===activeFilter)b.focus();});});holder.append(button);
     }
   }
   document.querySelectorAll("[data-mode]").forEach(button => button.addEventListener("click", () => { selectedMode = button.dataset.mode; updateMode(); }));

@@ -326,3 +326,13 @@ Object.assign(window.VYB_COPY.en, {
   "qVybPricing": "How do payment and maintenance work?",
   "aVybPricing": "Our standard approach is a 50% deposit and the remaining 50% before publication. Hosting and ongoing support are discussed separately in the written quote, depending on the project."
 });
+
+// Compact catalogue controls: all interface copy is bilingual.
+Object.assign(window.VYB_COPY.es, {
+  catalogMore: "Explorar más diseños", catalogLess: "Mostrar menos diseños",
+  catalogShowing: "Mostrando {shown} de {total} diseños"
+});
+Object.assign(window.VYB_COPY.en, {
+  catalogMore: "Explore more designs", catalogLess: "Show fewer designs",
+  catalogShowing: "Showing {shown} of {total} designs"
+});

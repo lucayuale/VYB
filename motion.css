@@ -1,0 +1,48 @@
+/* VYB: a localized motion layer. Existing layout, copy and brand remain intact. */
+:root { --vyb-ease:cubic-bezier(.22,1,.36,1); }
+.reveal { opacity:1; transform:none; }
+.project-card, .art-frame, .hero-logo, .hero-grid { animation:none; }
+.vyb-motion-ready .vyb-reveal {
+  transition:opacity 780ms var(--vyb-ease), transform 780ms var(--vyb-ease), translate 300ms var(--vyb-ease), box-shadow 300ms ease, background 250ms ease;
+  transition-delay:var(--vyb-delay,0ms),var(--vyb-delay,0ms),0ms,0ms,0ms;
+}
+.vyb-motion-ready .vyb-reveal:not(.is-visible) { opacity:0; transform:translate3d(0,24px,0); }
+.vyb-motion-ready .vyb-reveal.is-visible { opacity:1; transform:none; }
+.vyb-motion-ready .hero-copy > .vyb-reveal { transition-duration:1000ms; }
+.vyb-motion-ready .art-frame { animation:vyb-brand-reveal 1400ms var(--vyb-ease) both; }
+@keyframes vyb-brand-reveal { from { clip-path:inset(0 0 100% 0); } to { clip-path:inset(0 0 0 0); } }
+.vyb-motion-ready .hero-logo { animation:vyb-logo-arrive 1600ms var(--vyb-ease) both; }
+@keyframes vyb-logo-arrive { from { opacity:.3; transform:scale(.97); } to { opacity:1; transform:none; } }
+.site-header { transition:box-shadow 300ms ease, border-color 300ms ease; }
+.site-header.has-scrolled { box-shadow:0 12px 32px #0002; border-bottom-color:#b9956050; }
+.button, .service-path, .project-card, .round-link { transition:translate 300ms var(--vyb-ease), box-shadow 300ms ease, background 250ms ease, color 250ms ease; }
+.project-screenshot { transition:transform 650ms var(--vyb-ease); }
+.main-nav a:focus-visible::after { transform:scaleX(1); }
+.contact-orbit { animation-play-state:paused; }
+.contact.orbit-active .contact-orbit { animation-play-state:running; }
+.catalog-filters { scroll-margin-top:110px; }
+.catalog-expand { display:flex; justify-content:center; margin-top:42px; }
+#catalog-more { display:inline-flex; align-items:center; gap:25px; background:transparent; color:var(--paper,#f4eee5);
+  border:0; padding:8px 5px; min-height:56px; font:inherit; font-size:12px; letter-spacing:.07em; cursor:pointer; }
+.catalog-expand-arrow { width:48px; height:48px; display:grid; place-items:center; border:1px solid var(--gold,#b99560);
+  border-radius:50%; color:var(--gold,#b99560); font-size:24px; transition:transform 300ms var(--vyb-ease), background 250ms ease,color 250ms ease; }
+#catalog-more:focus-visible { outline:2px solid var(--gold,#b99560); outline-offset:7px; }
+@media(hover:hover) and (pointer:fine) {
+  .button:hover, .project-card:hover, .service-path:hover { transform:none; translate:0 -4px; }
+  .service-path:hover { box-shadow:0 14px 30px #17171610; }
+  #catalog-more:hover .catalog-expand-arrow { transform:translateY(3px); background:var(--gold,#b99560); color:var(--ink,#171716); }
+}
+@media(min-width:961px) and (hover:hover) and (prefers-reduced-motion:no-preference) {
+  .vyb-motion-ready .art-frame { translate:0 var(--vyb-drift,0px); }
+}
+@media(max-width:700px) {
+  .vyb-motion-ready .vyb-reveal { transition-duration:580ms; }
+  .vyb-motion-ready .vyb-reveal:not(.is-visible) { transform:translate3d(0,14px,0); }
+  .catalog-expand { margin-top:25px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+  .vyb-motion-ready .vyb-reveal, .vyb-motion-ready .hero-logo, .vyb-motion-ready .art-frame { opacity:1; transform:none; clip-path:none; animation:none; transition:none; translate:none; }
+  .button:hover, .service-path:hover, .project-card:hover { translate:none; }
+  .catalog-expand-arrow { transition:none; transform:none!important; }
+}
