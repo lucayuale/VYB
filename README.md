@@ -86,3 +86,7 @@ Pruebas opcionales con Node:
 ```powershell
 Get-ChildItem .\tests\verify*.mjs | ForEach-Object { node $_.FullName }
 ```
+
+## Actualización vigente: 16/11/2026
+
+Ver CORRECCION_RESPONSIVE_2026-11-16.md para rutas exactas, navegación en una sola landing, pruebas y comandos PowerShell. Esta entrega corrige el menú móvil, presupuesto y ancho de las páginas heredadas.

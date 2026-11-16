@@ -2267,3 +2267,19 @@ button:disabled{cursor:wait;opacity:.6}
 @media(max-width:1050px){.main-nav{gap:22px;margin-right:25px}.about-vyb{gap:35px}.about-vyb-team{padding:25px}.service-path{padding:25px 20px}}
 @media(max-width:800px){.about-vyb{grid-template-columns:1fr}.about-vyb-team{max-width:640px}.service-paths-head{display:block}.service-paths-head p{margin-top:20px;max-width:610px}.service-paths-grid{grid-template-columns:1fr}.service-path{min-height:230px}.service-path h3{margin-top:20px}.footer-about-link{margin-left:0}}
 @media(max-width:600px){.about-vyb h2,.service-paths h2{font-size:clamp(40px,11vw,57px)}.about-vyb-monogram{font-size:90px}.about-vyb-team{padding:22px}.founder-row strong{font-size:22px}}
+
+/* Mobile navigation: independent scrolling, all links reachable in short viewports. */
+@media(max-width:700px){
+ .main-nav{top:100%;left:0;right:0;width:auto;margin:0;gap:0}
+ .main-nav.is-open{
+  max-height:max(0px,calc(100vh - var(--vyb-menu-top,70px) - 12px));
+  max-height:max(0px,calc(100dvh - var(--vyb-menu-top,70px) - 12px));
+  overflow-y:auto;overscroll-behavior-y:contain;touch-action:pan-y;
+  scrollbar-width:thin;scrollbar-color:var(--gold) transparent;
+ }
+ .main-nav a{flex-shrink:0}
+ .form-grid,.form-grid>*{min-width:0}
+ .form-field input,.form-field select,.form-field textarea{min-width:0;max-width:100%}
+ .quote-actions a{flex-wrap:wrap;max-width:100%}
+}
+@media(max-width:700px){html.nav-open{overflow-y:hidden;scrollbar-gutter:stable}}

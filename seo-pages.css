@@ -13,3 +13,23 @@
 @media(max-width:900px){.seo-hero{grid-template-columns:1fr}.seo-hero-art{min-height:230px}.seo-frame{max-width:600px;aspect-ratio:1.8}.seo-art-vyb{font-size:105px}.seo-feature-grid{grid-template-columns:1fr;gap:12px}.seo-process{grid-template-columns:1fr}.seo-related-grid{grid-template-columns:1fr}.seo-hero h1{font-size:clamp(48px,9vw,88px)}}
 @media(max-width:650px){.seo-topbar span{display:none}.seo-header{gap:13px;height:auto;min-height:72px;flex-wrap:wrap;padding:14px 5%}.seo-header nav{order:3;width:100%;margin:0;justify-content:space-between;gap:12px}.seo-header nav a{font-size:11px}.seo-header nav a:nth-child(2){display:none}.seo-language{margin-left:auto}.seo-hero{padding-top:70px;padding-bottom:70px}.seo-hero h1{font-size:clamp(43px,12vw,70px)}.seo-hero-art{min-height:230px}.seo-frame{min-height:240px}.seo-art-vyb{font-size:88px}.seo-features,.seo-faq,.seo-related,.seo-process,.seo-final{padding-top:75px;padding-bottom:75px}.seo-steps{padding:22px}.seo-feature h3{font-size:25px}.seo-footer>span{flex-basis:100%}}
 @media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}}
+
+/* Responsive sizing: allow intrinsic logo/text sizes to shrink inside mobile grids. */
+@media(max-width:900px){
+ .seo-hero,.seo-process{grid-template-columns:minmax(0,1fr);row-gap:40px}
+ .seo-hero>*,.seo-process>*,.seo-feature-grid>*,.seo-related-grid>*{min-width:0}
+ .seo-frame{min-width:0;max-width:100%}
+ .seo-hero-copy,.seo-steps,.seo-service-link{overflow-wrap:anywhere}
+ .seo-service-link{grid-template-columns:minmax(0,1fr) auto}
+ .seo-button{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+ .seo-mail a{overflow-wrap:anywhere}
+}
+@media(max-width:650px){
+ .seo-header nav{flex-wrap:wrap;min-width:0}
+ .seo-header nav a{display:inline-flex;align-items:center;min-height:44px;max-width:100%;white-space:normal}
+ .seo-header nav a:nth-child(2){display:none}
+ .seo-header nav .seo-nav-cta{padding-bottom:0}
+ .seo-language{min-height:44px;display:inline-flex;align-items:center}
+ .seo-eyebrow{overflow-wrap:anywhere}
+ .seo-eyebrow span{flex-shrink:0}
+}

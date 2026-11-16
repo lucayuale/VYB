@@ -101,7 +101,11 @@
   });
 
   function updateMode() {
-    document.querySelectorAll("[data-mode]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.mode === selectedMode)));
+    document.querySelectorAll('[data-mode-target]').forEach(link => link.addEventListener('click', () => {
+    selectedMode = link.dataset.modeTarget;
+    updateMode();
+  }));
+  document.querySelectorAll("[data-mode]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.mode === selectedMode)));
     document.querySelectorAll("[data-column]").forEach(cell => cell.classList.toggle("selected-column", cell.dataset.column === selectedMode));
     document.querySelector("#mode-name").textContent = selectedMode === "custom" ? text("customName").toUpperCase() : selectedMode.toUpperCase();
     document.querySelector("#mode-title").textContent = text(`${selectedMode}Title`);
@@ -149,10 +153,19 @@
 
   langButton.addEventListener("click", () => setLanguage(document.documentElement.lang === "es" ? "en" : "es"));
   const mobileQuery = window.matchMedia("(max-width: 700px)");
+  function updateMenuViewport() {
+    if (!mobileQuery.matches) return;
+    const bottom = document.querySelector('.site-header').getBoundingClientRect().bottom;
+    nav.style.setProperty('--vyb-menu-top', `${Math.max(0, bottom)}px`);
+  }
+  window.addEventListener('resize', updateMenuViewport, {passive:true});
+  window.visualViewport?.addEventListener('resize', updateMenuViewport, {passive:true});
   function syncMenu() {
+    updateMenuViewport();
     const open = menuButton.getAttribute("aria-expanded") === "true";
     nav.inert = mobileQuery.matches && !open;
     document.body.classList.toggle("nav-open",mobileQuery.matches && open);
+    document.documentElement.classList.toggle("nav-open",mobileQuery.matches && open);
     menuButton.setAttribute("aria-label", text(open ? "menuClose" : "menuOpen"));
   }
   function closeMenu(restoreFocus = false) {
@@ -178,6 +191,10 @@
       button.addEventListener('click',()=>{activeFilter=category.id;visibleProjects=CATALOG_PAGE_SIZE;renderFilters();renderProjects(document.documentElement.lang);holder.querySelectorAll('button').forEach(b=>{if(b.dataset.filter===activeFilter)b.focus();});});holder.append(button);
     }
   }
+  document.querySelectorAll('[data-mode-target]').forEach(link => link.addEventListener('click', () => {
+    selectedMode = link.dataset.modeTarget;
+    updateMode();
+  }));
   document.querySelectorAll("[data-mode]").forEach(button => button.addEventListener("click", () => { selectedMode = button.dataset.mode; updateMode(); }));
   const canonical = safeUrl(config.seo?.canonicalUrl);
   if (canonical && canonical.startsWith("https://")) {
@@ -210,7 +227,19 @@
 
   let initial = config.defaultLanguage === "en" ? "en" : "es";
   try { const stored = localStorage.getItem("vyb-language"); if (["en","es"].includes(stored)) initial = stored; } catch { /* keep configured default */ }
+  const requestedLanguage = new URLSearchParams(window.location.search).get('lang');
+  if (['es','en'].includes(requestedLanguage)) initial = requestedLanguage;
+  const requestedMode = new URLSearchParams(window.location.search).get('mode');
+  if (['basic','booking','custom'].includes(requestedMode)) selectedMode = requestedMode;
   setLanguage(initial);
+  // Consume legacy entry hints once; later reloads keep the visitor's saved choice.
+  if (['es','en'].includes(requestedLanguage) || ['basic','booking','custom'].includes(requestedMode)) {
+    try {
+      const cleanURL = new URL(window.location.href);
+      cleanURL.searchParams.delete('lang'); cleanURL.searchParams.delete('mode');
+      history.replaceState(history.state, '', cleanURL);
+    } catch { /* Navigation still works if history access is restricted. */ }
+  }
   revealNew();
   const mobileQuote = document.querySelector('.mobile-quote');
   if ('IntersectionObserver' in window) {

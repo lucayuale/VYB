@@ -1,0 +1,368 @@
+{
+  "pages": [
+    {
+      "page": "/_fallback/es/nosotros/",
+      "rows": [
+        {
+          "scroll": 320,
+          "w": 320
+        },
+        {
+          "scroll": 360,
+          "w": 360
+        },
+        {
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "scroll": 390,
+          "w": 390
+        },
+        {
+          "scroll": 414,
+          "w": 414
+        },
+        {
+          "scroll": 768,
+          "w": 768
+        }
+      ]
+    },
+    {
+      "page": "/_fallback/en/about/",
+      "rows": [
+        {
+          "scroll": 320,
+          "w": 320
+        },
+        {
+          "scroll": 360,
+          "w": 360
+        },
+        {
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "scroll": 390,
+          "w": 390
+        },
+        {
+          "scroll": 414,
+          "w": 414
+        },
+        {
+          "scroll": 768,
+          "w": 768
+        }
+      ]
+    },
+    {
+      "page": "/_fallback/es/diseno-web/",
+      "rows": [
+        {
+          "scroll": 320,
+          "w": 320
+        },
+        {
+          "scroll": 360,
+          "w": 360
+        },
+        {
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "scroll": 390,
+          "w": 390
+        },
+        {
+          "scroll": 414,
+          "w": 414
+        },
+        {
+          "scroll": 768,
+          "w": 768
+        }
+      ]
+    },
+    {
+      "page": "/_fallback/en/web-design/",
+      "rows": [
+        {
+          "scroll": 320,
+          "w": 320
+        },
+        {
+          "scroll": 360,
+          "w": 360
+        },
+        {
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "scroll": 390,
+          "w": 390
+        },
+        {
+          "scroll": 414,
+          "w": 414
+        },
+        {
+          "scroll": 768,
+          "w": 768
+        }
+      ]
+    },
+    {
+      "page": "/_fallback/es/reservas-online/",
+      "rows": [
+        {
+          "scroll": 320,
+          "w": 320
+        },
+        {
+          "scroll": 360,
+          "w": 360
+        },
+        {
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "scroll": 390,
+          "w": 390
+        },
+        {
+          "scroll": 414,
+          "w": 414
+        },
+        {
+          "scroll": 768,
+          "w": 768
+        }
+      ]
+    },
+    {
+      "page": "/_fallback/en/online-booking/",
+      "rows": [
+        {
+          "scroll": 320,
+          "w": 320
+        },
+        {
+          "scroll": 360,
+          "w": 360
+        },
+        {
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "scroll": 390,
+          "w": 390
+        },
+        {
+          "scroll": 414,
+          "w": 414
+        },
+        {
+          "scroll": 768,
+          "w": 768
+        }
+      ]
+    },
+    {
+      "page": "/_fallback/es/desarrollo-web-personalizado/",
+      "rows": [
+        {
+          "scroll": 320,
+          "w": 320
+        },
+        {
+          "scroll": 360,
+          "w": 360
+        },
+        {
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "scroll": 390,
+          "w": 390
+        },
+        {
+          "scroll": 414,
+          "w": 414
+        },
+        {
+          "scroll": 768,
+          "w": 768
+        }
+      ]
+    },
+    {
+      "page": "/_fallback/en/custom-web-development/",
+      "rows": [
+        {
+          "scroll": 320,
+          "w": 320
+        },
+        {
+          "scroll": 360,
+          "w": 360
+        },
+        {
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "scroll": 390,
+          "w": 390
+        },
+        {
+          "scroll": 414,
+          "w": 414
+        },
+        {
+          "scroll": 768,
+          "w": 768
+        }
+      ]
+    }
+  ],
+  "home": [
+    {
+      "lang": "es",
+      "rows": [
+        {
+          "fieldOverflow": false,
+          "form": 246,
+          "scroll": 320,
+          "w": 320
+        },
+        {
+          "fieldOverflow": false,
+          "form": 278,
+          "scroll": 360,
+          "w": 360
+        },
+        {
+          "fieldOverflow": false,
+          "form": 293,
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "fieldOverflow": false,
+          "form": 308,
+          "scroll": 390,
+          "w": 390
+        },
+        {
+          "fieldOverflow": false,
+          "form": 332,
+          "scroll": 414,
+          "w": 414
+        },
+        {
+          "fieldOverflow": false,
+          "form": 616.90625,
+          "scroll": 768,
+          "w": 768
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "rows": [
+        {
+          "fieldOverflow": false,
+          "form": 246,
+          "scroll": 320,
+          "w": 320
+        },
+        {
+          "fieldOverflow": false,
+          "form": 278,
+          "scroll": 360,
+          "w": 360
+        },
+        {
+          "fieldOverflow": false,
+          "form": 293,
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "fieldOverflow": false,
+          "form": 308,
+          "scroll": 390,
+          "w": 390
+        },
+        {
+          "fieldOverflow": false,
+          "form": 332,
+          "scroll": 414,
+          "w": 414
+        },
+        {
+          "fieldOverflow": false,
+          "form": 616.90625,
+          "scroll": 768,
+          "w": 768
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "entry": "/es/nosotros/",
+      "lang": "es",
+      "url": "http://127.0.0.1:4173/?lang=es#nosotros"
+    },
+    {
+      "entry": "/en/about/",
+      "lang": "en",
+      "url": "http://127.0.0.1:4173/?lang=en#nosotros"
+    },
+    {
+      "entry": "/es/diseno-web/",
+      "lang": "es",
+      "url": "http://127.0.0.1:4173/?lang=es#modalidades"
+    },
+    {
+      "entry": "/en/web-design/",
+      "lang": "en",
+      "url": "http://127.0.0.1:4173/?lang=en#modalidades"
+    },
+    {
+      "entry": "/es/reservas-online/",
+      "lang": "es",
+      "url": "http://127.0.0.1:4173/?lang=es&mode=booking#modalidades"
+    },
+    {
+      "entry": "/en/online-booking/",
+      "lang": "en",
+      "url": "http://127.0.0.1:4173/?lang=en&mode=booking#modalidades"
+    },
+    {
+      "entry": "/es/desarrollo-web-personalizado/",
+      "lang": "es",
+      "url": "http://127.0.0.1:4173/?lang=es&mode=custom#modalidades"
+    },
+    {
+      "entry": "/en/custom-web-development/",
+      "lang": "en",
+      "url": "http://127.0.0.1:4173/?lang=en&mode=custom#modalidades"
+    }
+  ],
+  "desktopIdentical": true,
+  "menuScroll": {
+    "scrollTop": 191,
+    "pageScroll": 0,
+    "viewportHeight": 220
+  }
+}
