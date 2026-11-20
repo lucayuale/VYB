@@ -5,7 +5,7 @@ window.VYB_COPY = {
     "heroSecondary": "Cómo trabajamos",
     "heroLede": "Diseñamos y desarrollamos webs para pequeños negocios: tu marca, tus servicios y una forma clara de contactarte o reservar.",
     "projectsTitle": "Un rubro. Una mirada.<br><em>Una identidad propia.</em>",
-    "projectsIntro": "Explorá diez demostraciones para distintos negocios. Cada diseño puede adaptarse a tu marca, tus servicios y tus materiales.",
+    "projectsIntro": "Explorá nuestras demostraciones para distintos negocios. Cada diseño puede adaptarse a tu marca, tus servicios y tus materiales.",
     "projectsNote": "Estas páginas son demostraciones ficticias de diseño, no clientes ni servicios comerciales reales. Las capturas son vistas de referencia.",
     "all": "Todos",
     "barber": "Barberías",
@@ -140,7 +140,7 @@ window.VYB_COPY = {
     "heroSecondary": "How we work",
     "heroLede": "We design and build websites for small businesses, bringing your brand, services and contact or booking experience together.",
     "projectsTitle": "An industry. A perspective.<br><em>An identity of your own.</em>",
-    "projectsIntro": "Explore ten demonstrations for different businesses. Each design can be adapted to your brand, services and content.",
+    "projectsIntro": "Explore our demonstrations for different businesses. Each design can be adapted to your brand, services and content.",
     "projectsNote": "These websites are fictional design demonstrations, not client projects or real business services. Screenshots are reference previews.",
     "all": "All",
     "barber": "Barbershops",
@@ -295,7 +295,7 @@ Object.assign(window.VYB_COPY.es, {
   "qVybWho": "¿Quiénes están detrás de VYB?",
   "aVybWho": "VYB fue fundado por Luca Yuale y Valentín Bertuccelli. Ambos somos estudiantes de Ingeniería en Sistemas de Información en la UTN, en Rosario, Argentina.",
   "qVybDemos": "¿Las páginas del portfolio son trabajos de clientes reales?",
-  "aVybDemos": "Las diez páginas que mostramos son demostraciones creadas por VYB, no trabajos contratados por clientes. Sirven para mostrar estilos y funcionalidades que podemos conversar para tu negocio.",
+  "aVybDemos": "Las páginas que mostramos son demostraciones creadas por VYB, no trabajos contratados por clientes. Sirven para mostrar estilos y funcionalidades que podemos conversar para tu negocio.",
   "qVybPricing": "¿Cómo funcionan los pagos y el mantenimiento?",
   "aVybPricing": "Nuestra modalidad habitual es 50% de anticipo y 50% antes de publicar. El hosting y el soporte mensual se detallan por separado en el presupuesto según el alcance del proyecto."
 });
@@ -322,7 +322,7 @@ Object.assign(window.VYB_COPY.en, {
   "qVybWho": "Who is behind VYB?",
   "aVybWho": "VYB was founded by Luca Yuale and Valentín Bertuccelli, Information Systems Engineering students at UTN in Rosario, Argentina.",
   "qVybDemos": "Are the portfolio websites real client projects?",
-  "aVybDemos": "The ten websites shown are demonstrations created by VYB, not commissioned client work. They show visual directions and features we can discuss for your business.",
+  "aVybDemos": "The websites shown are demonstrations created by VYB, not commissioned client work. They show visual directions and features we can discuss for your business.",
   "qVybPricing": "How do payment and maintenance work?",
   "aVybPricing": "Our standard approach is a 50% deposit and the remaining 50% before publication. Hosting and ongoing support are discussed separately in the written quote, depending on the project."
 });

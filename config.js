@@ -6,8 +6,8 @@ window.VYB_CONFIG = {
       "es": "VYB — Diseño web para pequeños negocios"
     },
     "description": {
-      "en": "Websites for small businesses, designed around your brand. Explore ten industry demos and compare Basic, Booking and Custom. Request a quote from VYB.",
-      "es": "Páginas web para pequeños negocios, adaptadas a tu marca. Explorá diez demos por rubro, compará Basic, Booking y Personalizada y solicitá presupuesto a VYB."
+      "en": "Websites for small businesses, designed around your brand. Explore our industry demos and compare Basic, Booking and Custom. Request a quote from VYB.",
+      "es": "Páginas web para pequeños negocios, adaptadas a tu marca. Explorá nuestras demos por rubro, compará Basic, Booking y Personalizada y solicitá presupuesto a VYB."
     },
     "canonicalUrl": "https://vyb.vybstudydesign.workers.dev/",
     "image": "assets/vyb-logo-email.png"
@@ -247,6 +247,28 @@ window.VYB_CONFIG = {
       },
       "published": true,
       "mode": "booking"
+    },
+    {
+      "id": "moveform",
+      "name": "MOVEFORM",
+      "category": "apparel",
+      "theme": "default",
+      "type": {
+        "es": "INDUMENTARIA DEPORTIVA",
+        "en": "ACTIVEWEAR"
+      },
+      "description": {
+        "es": "Catálogo de indumentaria deportiva con colecciones, filtros y fichas con talles y precios.",
+        "en": "An activewear catalog with collections, filters and product details, including sizes and prices."
+      },
+      "url": "https://lucayuale.github.io/Indumentaria-demo/",
+      "screenshot": "assets/demo-moveform.webp",
+      "screenshotAlt": {
+        "es": "Portada de MOVEFORM con dos modelos usando indumentaria deportiva.",
+        "en": "MOVEFORM homepage featuring two models in activewear."
+      },
+      "published": true,
+      "mode": "catalog"
     }
   ],
   "social": {
@@ -321,6 +343,13 @@ window.VYB_CONFIG = {
       "label": {
         "es": "Peluquerías caninas",
         "en": "Pet grooming"
+      }
+    },
+    {
+      "id": "apparel",
+      "label": {
+        "es": "Indumentaria",
+        "en": "Apparel"
       }
     }
   ],

@@ -1,5 +1,22 @@
 # VYB — Web oficial optimizada, 6 de noviembre de 2026
 
+## Actualización del catálogo · MOVEFORM
+
+El catálogo de la web oficial incluye 11 demos y suma el filtro **Indumentaria / Apparel**. La tarjeta MOVEFORM usa una captura local de la demo y enlaza a https://lucayuale.github.io/Indumentaria-demo/.
+
+Para actualizar GitHub, extraé el ZIP y subí **su contenido** a la carpeta del repositorio oficial donde ya están `index.html` y `config.js`. Hacé el commit en la rama que publica Cloudflare. Conservá los archivos de despliegue que ya existan en el repositorio. Esta actualización es estática y está lista para subir sin compilar.
+
+Rutas modificadas respecto de la versión con navegación unificada:
+
+- `config.js`: tarjeta, enlace y filtro bilingüe.
+- `assets/demo-moveform.webp`: nueva captura WebP.
+- `index.html`, `content.js` y los ocho `index.html` de `en/` y `es/`: textos y metadatos del catálogo sin un número fijo.
+- `tests/verify.mjs`, `tests/verify-catalog.mjs` y `tests/verify-motion-catalog.mjs`: comprobaciones del catálogo actualizado y de la configuración anterior.
+- `README.md`: esta guía de actualización.
+
+La vista inicial muestra dos tarjetas. Se puede usar el filtro de indumentaria para encontrar MOVEFORM directamente o desplegar el catálogo completo.
+
+
 Esta carpeta es la web oficial estática actual, no una restauración de la v4 histórica. Conserva los siete enlaces, identidad oscura/dorada, logo, animaciones, planes Basic/Booking/Custom, formulario activo configurado e inglés inicial con preferencia EN/ES guardada. No se añadieron precios, testimonios, clientes ni garantías.
 
 ## Abrir en Windows
